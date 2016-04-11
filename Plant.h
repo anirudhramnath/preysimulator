@@ -15,7 +15,7 @@ public:
     /**
      * @param food_level
      */
-    void getConsumed(void food_level);
+    int getGraced(void food_level);
 };
 
 #endif //_PLANT_H

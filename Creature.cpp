@@ -4,19 +4,28 @@
 
 
 #include "Creature.h"
-
+#include "CreatureFactory.h"
 /**
  * Creature implementation
  */
-
-
+Creature::Creature(int position_x, int position_y){
+	current_food_level = min_food_level;
+	is_alive = true;
+	Creature::position_x = position_x;
+	Creature::position_y = position_y;
+}
 /**
  * @param food_count
  */
-void Creature::grow(void food_count) {
-
+void Creature::addFoodLevel(int food_points) {
+	current_food_level += food_points;
+	if(current_food_level < 0)
+		current_food_level = 0;
+	else if (current_food_level>max_food_level)
+		current_food_level = max_food_level;
 }
 
 void Creature::metabolize() {
-
+	addFoodLevel(rate_of_metabolism);
 }
+void Creature::routine()=0;

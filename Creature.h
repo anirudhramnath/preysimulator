@@ -7,20 +7,25 @@
 #define _CREATURE_H
 
 class Creature {
+
+protected: 
+    static const int min_food_level;
+    static const int max_food_level;
+    static const int rate_of_metabolism;
+    int current_food_level;
+    int position_x;
+    int position_y;
+
 public: 
     
     /**
      * @param food_count
      */
-    void grow(void food_count);
-    
+    Creature();
+    void Creature::addFoodLevel(int food_points);
     void metabolize();
-protected: 
-    void min_food_level;
-    void max_food_level;
-    void current_food_level;
-    void rate_of_metabolism;
-    void is_alive;
+    void routine();
+
 };
 
 #endif //_CREATURE_H

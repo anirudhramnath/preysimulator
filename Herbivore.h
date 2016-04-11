@@ -13,7 +13,7 @@
 class Herbivore: public Creature, public Animal {
 public: 
     
-    void getConsumed();
+    int getConsumed();
     
     void evade();
 };
