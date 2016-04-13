@@ -6,6 +6,7 @@
 //
 
 #include "Land.hpp"
+#include "Creature.h"
 #include <vector>
 #include <typeinfo>
 #include <string>

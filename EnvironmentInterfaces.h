@@ -1,4 +1,4 @@
-#include <typeinfo.h>
+#include <typeinfo>
 #ifndef _ENVIRONMENT_INTERFACES
 #define _ENVIRONMENT_INTERFACES
 class Environment{

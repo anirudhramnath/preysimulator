@@ -5,6 +5,7 @@
 #include <map>
 
 #include "CreatureFactory.h"
+#include "EnvironmentInterfaces.h"
 
 #ifndef _SIMULATIONCONTROLLER_H
 #define _SIMULATIONCONTROLLER_H

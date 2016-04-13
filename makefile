@@ -1,5 +1,5 @@
 # Add dependencies in the first line
-DEPENDENCIES=Land.o SquareYard.o
+DEPENDENCIES=Animal Carnivore Creature CreatureFactory Deer Grass Herbivore Land Plant Rabiit Sheep SimulationController SquareYard Wolf Zombie main
 
 OBJECT_FILES=main.o $(DEPENDENCIES)
 TARGET_FILE=sfml-app

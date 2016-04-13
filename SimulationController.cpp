@@ -129,7 +129,7 @@ void changePosition(Creature * creature,int position_x,int position_y){
 	}
 }
 
-std::vector<Creature *> getCreatureList() {
+std::vector<Creature *> SimulationController::getCreatureList() {
 	std::vector<Creature *> creatures;
 	for (int i=0; i < list_of_creatures.size(); ++i) {
 		creatures.push_back(list_of_creatures[i]);
