@@ -23,6 +23,8 @@ public:
     void stop();
     
     void pause();
+
+    std::vector<Creature *> getCreatureList();
 };
 
 #endif //_SIMULATIONCONTROLLER_H
