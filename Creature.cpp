@@ -8,15 +8,20 @@
 /**
  * Creature implementation
  */
-Creature::Creature(int position_x, int position_y){
+Creature::Creature(Environment * environment, int position_x, int position_y){
 	current_food_level = min_food_level;
 	is_alive = true;
 	Creature::position_x = position_x;
 	Creature::position_y = position_y;
+	Creature::environment = environment;
 }
 /**
  * @param food_count
  */
+void setPosition(int position_x, int position_y){
+	Creature::position_x = position_x;
+	Creature::position_y = position_y;
+}
 void Creature::addFoodLevel(int food_points) {
 	current_food_level += food_points;
 	if(current_food_level < 0)

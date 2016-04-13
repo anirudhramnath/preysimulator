@@ -10,11 +10,13 @@
 #include "Animal.h"
 
 
-class Herbivore: public Creature, public Animal {
+class Herbivore: public Animal {
 public: 
     
     int getConsumed();
     
+    int currentAppetite();
+
     void evade();
 };
 

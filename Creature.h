@@ -15,6 +15,7 @@ protected:
     int current_food_level;
     int position_x;
     int position_y;
+    Environment * environment;
 
 public: 
     

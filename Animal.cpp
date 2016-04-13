@@ -9,15 +9,15 @@
  * Animal implementation
  */
 
-void Animal::Animal(int position_x, int position_y):Creature(position_x, position_y){
+void Animal::Animal(Environment * environment, int position_x, int position_y):Creature(environment, position_x, position_y){
 	age = 0;
 	is_alive = 1;
 }
 void Animal::grow(void food_count) {
 	addFoodLevel(food_count);
 }
-void Animal::move(Direction direction_x, Direction direction_y) {
-	switch direction_x:
+void Animal::changePosition(Direction direction) {
+	switch direction:
 	{
 		case LEFT:
 		position_x -= 1;
@@ -25,9 +25,6 @@ void Animal::move(Direction direction_x, Direction direction_y) {
 		case RIGHT:
 		position_x += 1;
 		break;
-	}
-	switch direction_y:
-	{
 		case UP:
 		position_y -= 1;
 		break;
@@ -58,8 +55,20 @@ void Animal::age() {
     }
 }
 
+void virtual Animal::getFood()=0;
+
 void Animal::reproduce() {
 
+}
+
+void virtual Animal::Routine(){
+
+}
+
+void setPosition(int position_x, int position_y){
+	environment->changePosition(position_x, position_y);
+	Creature::position_x = position_x;
+	Creature::position_y = position_y;
 }
 
 void Animal::die() {

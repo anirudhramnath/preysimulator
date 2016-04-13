@@ -9,7 +9,7 @@
 #ifndef _SIMULATIONCONTROLLER_H
 #define _SIMULATIONCONTROLLER_H
 
-class SimulationController {
+class SimulationController : public Environment {
 private:
 	int grid_width;
 	int grid_height;

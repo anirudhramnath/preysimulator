@@ -19,7 +19,7 @@ protected:
     
 
 public: 
-    static const enum Direction {LEFT, RIGHT, UP, DOWN, NO_MOTION};
+    static const enum Direction { LEFT, RIGHT, UP, DOWN };
     void move();
     
     /**
@@ -34,6 +34,8 @@ public:
     void reproduce();
 
     int getHunted();
+
+    void getFood();
     
     void die();
 };
