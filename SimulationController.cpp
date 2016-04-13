@@ -129,6 +129,20 @@ void changePosition(Creature * creature,int position_x,int position_y){
 	}
 }
 
+std::vector<Creature *> getCreatureList() {
+	std::vector<Creature *> creatures;
+	for (int i=0; i < list_of_creatures.size(); ++i) {
+		creatures.push_back(list_of_creatures[i]);
+	}
+
+	std::map<std::int, Creature*>::iterator mapIter;
+	for (mapIter = creature_location_map.begin(); mapIter != creature_location_map.end(); ++mapIter) {
+       creatures.push_back(append(mapIter->second));
+    }
+
+    return creatures;
+}
+
 void SimulationController::start() {
 
 }
