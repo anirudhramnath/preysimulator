@@ -12,6 +12,8 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "SquareYard.hpp"
+#include "Creature.h"
+#include "SimulationController.h"
 
 
 class Land{
