@@ -4,11 +4,11 @@
 
 
 #include "Creature.h"
-#include "CreatureFactory.h"
 /**
  * Creature implementation
  */
-Creature::Creature(Environment * environment, int position_x, int position_y){
+
+Creature::Creature(SimulationController * environment, int position_x, int position_y){
 	current_food_level = min_food_level;
 	is_alive = true;
 	Creature::position_x = position_x;
