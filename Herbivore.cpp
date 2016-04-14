@@ -70,6 +70,9 @@ void Herbivore::move(){
 				
 	
 }
+Creature * Herbivore::getInstance(){
+	return (Creature *)Herbivore(environment, 0, 0);
+}
 
 void Herbivore::evade() {
 

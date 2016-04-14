@@ -27,6 +27,9 @@ int virtual Plant::getGraced(int food_level) {
 	return consumable_amount
 
 }
+Creature * Plant::getInstance(){
+	return (Creature *)Plant(environment, 0, 0);
+}
 
 void virtual routine(){
 	metabolise();

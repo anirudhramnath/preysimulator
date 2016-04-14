@@ -65,6 +65,10 @@ void virtual Animal::Routine(){
 
 }
 
+Creature * Animal::getInstance(){
+	return (Creature *)Animal(environment, 0, 0);
+}
+
 void setPosition(int position_x, int position_y){
 	environment->changePosition(position_x, position_y);
 	Creature::position_x = position_x;

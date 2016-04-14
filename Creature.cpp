@@ -30,6 +30,15 @@ void Creature::addFoodLevel(int food_points) {
 		current_food_level = max_food_level;
 }
 
+Creature * Creature::getInstance(){
+	return Creature(environment, 0, 0);
+}
+void Creature::reproduce(){
+	if((float)current_food_level/(float)max_food_level*100 > reproduction_treshold){
+		environment->addChild(getInstance(), position_x, position_y);
+	}
+}
+
 void Creature::metabolize() {
 	addFoodLevel(rate_of_metabolism);
 }

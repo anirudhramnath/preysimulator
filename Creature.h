@@ -9,6 +9,7 @@
 class Creature {
 
 protected: 
+    static const int reproduction_treshold;
     static const int min_food_level;
     static const int max_food_level;
     static const int rate_of_metabolism;
@@ -26,7 +27,7 @@ public:
     void Creature::addFoodLevel(int food_points);
     void metabolize();
     void routine();
-
+    void reproduce();
 };
 
 #endif //_CREATURE_H

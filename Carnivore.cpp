@@ -24,6 +24,10 @@ void Carnivore::hunt(){
 	this->addFoodlevel(deer->getHunted());
 }
 
+Creature * Carnivore::getInstance(){
+	return (Creature *)Carnivore(environment, 0, 0);
+}
+
 void Carnivore::move(){
 	Creature * nearest_creature = environment->getNearestCreature(Grass, position_x, position_y);
 	try{

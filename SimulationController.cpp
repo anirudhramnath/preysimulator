@@ -143,6 +143,25 @@ std::vector<Creature *> getCreatureList() {
     return creatures;
 }
 
+void addChild(Creature * child, int position_x, int position_y){
+	int positions[8][2] ={
+		{position_x-1, position_y-1},
+		{position_x-1, position_y},
+		{position_x-1, position_y+1},
+		{position_x, position_y-1},
+		{position_x, position_y+1},
+		{position_x+1, position_y-1},
+		{position_x+1, position_y},
+		{position_x+1, position_y+1}
+	};
+	for(int i=0;i<8;i++){
+		Creature * creature = creature_location_map[positions[i][0]*grid_width+positions[i][1]];
+		if(creature == 0){
+			creature_location_map[positions[i][0]*grid_width+positions[i][1]] = child;
+		}
+	}
+}
+
 void SimulationController::start() {
 
 }
