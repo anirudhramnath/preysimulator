@@ -1,7 +1,7 @@
 # Add dependencies in the first line
-DEPENDENCIES=Land.o SquareYard.o
+DEPENDENCIES=SimulationController Animal Carnivore CreatureFactory Creature Deer Grass Herbivore Land Plant Rabiit Sheep SquareYard Wolf Zombie main
 
-OBJECT_FILES=main.o $(DEPENDENCIES)
+OBJECT_FILES=$(DEPENDENCIES) main.o
 TARGET_FILE=sfml-app
 LIBRARIES=-lsfml-graphics -lsfml-window -lsfml-system
 

@@ -6,6 +6,9 @@
 #ifndef _CREATURE_H
 #define _CREATURE_H
 
+#include "SimulationController.h"
+class SimulationController;
+
 class Creature {
 
 protected: 
@@ -16,7 +19,7 @@ protected:
     int current_food_level;
     int position_x;
     int position_y;
-    Environment * environment;
+    SimulationController * environment;
 
 public: 
     
@@ -24,7 +27,7 @@ public:
      * @param food_count
      */
     Creature();
-    void Creature::addFoodLevel(int food_points);
+    void addFoodLevel(int food_points);
     void metabolize();
     void routine();
     void reproduce();

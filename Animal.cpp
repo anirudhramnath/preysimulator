@@ -9,7 +9,7 @@
  * Animal implementation
  */
 
-void Animal::Animal(Environment * environment, int position_x, int position_y):Creature(environment, position_x, position_y){
+void Animal::Animal(SimulationController * environment, int position_x, int position_y):Creature(environment, position_x, position_y){
 	age = 0;
 	is_alive = 1;
 }

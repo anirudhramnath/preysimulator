@@ -24,7 +24,7 @@ int virtual Plant::getGraced(int food_level) {
 		consumable_amount = current_food_level;
 	}
 	addFoodLevel(-consumable_amount);
-	return consumable_amount
+	return consumable_amount;
 
 }
 Creature * Plant::getInstance(){
