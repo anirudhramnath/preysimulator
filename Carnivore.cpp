@@ -22,7 +22,7 @@ void Carnivore::getFood(){
 }
 
 void Carnivore::hunt(){
-	vector<Creature *> list_of_animals = environment->getCreaturesAround(Deer, position_x, position_y);
+	vector<Creature *> list_of_animals = environment->getCreaturesAround(typeid(Deer), position_x, position_y);
 	Deer * deer = (Deer *)list_of_animals[0];
 	this->addFoodlevel(deer->getConsumed());
 }
@@ -32,7 +32,7 @@ Creature * Carnivore::getInstance(){
 }
 
 void Carnivore::move(){
-	Creature * nearest_creature = environment->getNearestCreature(Grass, position_x, position_y);
+	Creature * nearest_creature = environment->getNearestCreature(typeid(Deer), position_x, position_y);
 	try{
 		if(nearest_creature != 0){
 			if(abs(position_x-nearest_creature->position_x)>abs(position_y-nearest_creature->position_y){

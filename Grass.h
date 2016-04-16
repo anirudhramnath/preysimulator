@@ -12,6 +12,7 @@
 class Grass: public Plant {
 public:
 	Grass(SimulationController *, int, int);
+    virtual Creature * getInstance();
 };
 
 #endif //_GRASS_H

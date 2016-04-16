@@ -13,16 +13,16 @@ Herbivore::Herbivore(SimulationController * environment, int position_x,int posi
 }
 
 void Herbivore::getFood(){
-	this.grace();
+	this->grace();
 }
 
 void Herbivore::grace(){
-	Grass * grass = (Grass *)environment.getCreaturesIn(Grass, position_x, position_y);
-	this.addFoodLevel(grass.getGraced(this.currentAppetite())); // dont need appetite. we can impl it in Grass class. more grass = more food grazed
+	Grass * grass = (Grass *)environment->getCreaturesIn(typeid(Grass), position_x, position_y);
+	this->addFoodLevel(grass->getGraced(this.currentAppetite())); // dont need appetite. we can impl it in Grass class. more grass = more food grazed
 }
 
 void Herbivore::move(){
-	Creature * nearest_creature = environment->getNearestCreature(Grass, position_x, position_y);
+	Creature * nearest_creature = environment->getNearestCreature(typeid(Grass), position_x, position_y);
 	try{
 		if(nearest_creature != 0){
 			if(abs(position_x-nearest_creature->position_x)>abs(position_y-nearest_creature->position_y){
@@ -56,7 +56,7 @@ void Herbivore::move(){
 		{position_x+1, position_y},
 		{position_x, position_y-1},
 		{position_x, position_y+1}
-	}
+	};
 	for(int i =0;i<4;i++){
 		try{
 			setPosition(positions[i][0], positions[i][1]);

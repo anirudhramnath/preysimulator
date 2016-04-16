@@ -18,6 +18,7 @@ public:
     Plant(SimulationController * , int, int);
     int getGraced(int food_level);
     int getConsumed(int);
+    virtual Creature * getInstance();
 };
 
 #endif //_PLANT_H

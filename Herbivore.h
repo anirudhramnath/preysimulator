@@ -5,15 +5,17 @@
 
 #ifndef _HERBIVORE_H
 #define _HERBIVORE_H
-
+#include <math.h>
 #include "Creature.h"
 #include "Animal.h"
+#include "Grass.h"
 
 
 class Herbivore: public Animal {
 public: 
-    Herbivore::Herbivore(SimulationController *, int, int);
+    Herbivore(SimulationController *, int, int);
     int currentAppetite();
+    virtual void getFood();
 
     void grace();
 };

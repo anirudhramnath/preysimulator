@@ -7,6 +7,7 @@
 #define _DEER_H
 
 #include "Herbivore.h"
+#include "SimulationController.h"
 
 
 class Deer: public Herbivore {

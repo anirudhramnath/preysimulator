@@ -4,7 +4,7 @@
 
 
 #include "Plant.h"
-
+#include "SimulationController.h"
 /**
  * Plant implementation
  */
@@ -28,7 +28,7 @@ int Plant::getConsumed(int food_demand){
 	return return_value;
 }
 
-int virtual Plant::getGraced(int food_level) {
+int Plant::getGraced(int food_level) {
 	int consumable_amount;
 	if(current_food_level > food_level){
 		consumable_amount = food_level;
@@ -41,9 +41,9 @@ int virtual Plant::getGraced(int food_level) {
 
 }
 Creature * Plant::getInstance(){
-	return (Creature *)Plant(environment, 0, 0);
+	return (Creature *)new Plant(environment, 0, 0);
 }
 
-void virtual routine(){
-	metabolise();
+void routine(){
+	//metabolise();
 }

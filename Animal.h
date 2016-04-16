@@ -32,7 +32,9 @@ public:
 
     int getHunted();
 
-    void getFood();
+    virtual void getFood()=0;
+
+    virtual Creature * getInstance()=0;
     
     void die();
 

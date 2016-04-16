@@ -25,13 +25,13 @@ SimulationController::SimulationController(){
 	grid_width = 20;
 	grid_height = 20;
 	creature_location_map = std::map<int, Creature *>();
-	creature_factory = CreatureFactory();
+	creature_factory = new CreatureFactory();
 	std::vector<Creature *> list_of_creatures = std::vector<Creature *>();
 	for(x=0;x<grid_width;x++)
 	{
 		for(y=0;y<grid_height;y++)
 		{
-			list_of_creatures.push_back(creature_factory.getCreature(this, std::string("GRASS"), x, y));
+			list_of_creatures.push_back(creature_factory->getCreature(this, std::string("GRASS"), x, y));
 		}
 	}
 
@@ -42,7 +42,7 @@ SimulationController::SimulationController(){
 			y = random_position%grid_width;
 
 			if(creature_location_map.at(random_position) == NULL){
-				new_creature = creature_factory.getCreature(this, std::string("DEER"), x, y);
+				new_creature = creature_factory->getCreature(this, std::string("DEER"), x, y);
 				std::pair<int, Creature *> created_creature = std::pair<int, Creature *>(random_position, new_creature);
 				creature_location_map.insert(created_creature);
 				break;
@@ -58,7 +58,7 @@ SimulationController::SimulationController(){
 			y = random_position%grid_width;
 
 			if(creature_location_map.at(random_position) == NULL){
-				new_creature = creature_factory.getCreature(this, std::string("WOLF"), x, y);
+				new_creature = creature_factory->getCreature(this, std::string("WOLF"), x, y);
 				std::pair<int, Creature *> created_creature = std::pair<int, Creature *>(random_position, new_creature);
 				creature_location_map.insert(created_creature);
 				break;
@@ -68,18 +68,19 @@ SimulationController::SimulationController(){
 	}
 }
 
-Creature * SimulationController::getCreaturesIn(string class_type, int position_x, int position_y){
+Creature * SimulationController::getCreaturesIn(type_info class_type, int position_x, int position_y){
+	
 	Creature * creature_in_cell = creature_location_map.at(position_x*grid_width+position_y);
-	if(typeid(creature_in_cell)==typeid(class_type)){
+	if(typeid(creature_in_cell)==class_type){
 		return creature_in_cell;
 	}
 	creature_in_cell = list_of_creatures[position_x*grid_width+position_y];
-	if(typeid(creature_in_cell)==typeid(class_type)){
+	if(typeid(creature_in_cell)==class_type){
 		return creature_in_cell;
 	}
 }
 
-std::vector<Creature *>* SimulationController::getCreaturesAround(string class_type, int position_x, int position_y){
+std::vector<Creature *>* SimulationController::getCreaturesAround(type_info class_type, int position_x, int position_y){
 	int list_of_surrounding_cells[] = {
 		(position_x-1)*grid_width+(position_y-1),
 		(position_x-1)*grid_width+(position_y),
@@ -95,24 +96,24 @@ std::vector<Creature *>* SimulationController::getCreaturesAround(string class_t
 	for(int i = 0; i<8;i++)
 	{
 		Creature * creature_in_cell = creature_location_map.at(list_of_surrounding_cells[i]);
-		if(typeid(creature_in_cell)==typeid(class_type)){
+		if(typeid(creature_in_cell)==class_type){
 			list_of_creatures->push_back(creature_in_cell);
 		}
 		creature_in_cell = list_of_creatures->at(list_of_surrounding_cells[i]);
-		if(typeid(creature_in_cell)==typeid(class_type)){
+		if(typeid(creature_in_cell)==class_type){
 			list_of_creatures->push_back(creature_in_cell);
 		}
 	}
 	return list_of_creatures;
 }
 
-Creature * SimulationController::getNearestCreature(string class_type, int position_x, int position_y){
+Creature * SimulationController::getNearestCreature(type_info class_type, int position_x, int position_y){
 	int min_distance = grid_height*grid_width - 1;
 	Creature * closest_creature = 0;
 	for(map<int, Creature *>::iterator it= creature_location_map.begin(); it != creature_location_map.end(); it++){
 		int current_distance = abs(it->first-(position_x*grid_width + position_y));
 		Creature * current_creature = it->second;
-		if(current_distance < min_distance && typeid(class_type) == typeid(current_creature)){
+		if(current_distance < min_distance && class_type == typeid(current_creature)){
 			min_distance = current_distance;
 			closest_creature = current_creature;
 		}
