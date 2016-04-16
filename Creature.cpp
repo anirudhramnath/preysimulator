@@ -18,9 +18,9 @@ Creature::Creature(SimulationController * environment, int position_x, int posit
 /**
  * @param food_count
  */
-void setPosition(int position_x, int position_y){
-	Creature::position_x = position_x;
-	Creature::position_y = position_y;
+void Creature::setPosition(int position_x, int position_y){
+	this->position_x = position_x;
+	this->position_y = position_y;
 }
 void Creature::addFoodLevel(int food_points) {
 	current_food_level += food_points;
@@ -31,7 +31,8 @@ void Creature::addFoodLevel(int food_points) {
 }
 
 Creature * Creature::getInstance(){
-	return Creature(environment, 0, 0);
+	//return Creature(environment, 0, 0);
+	return NULL;
 }
 void Creature::reproduce(){
 	if((float)current_food_level/(float)max_food_level*100 > reproduction_treshold){

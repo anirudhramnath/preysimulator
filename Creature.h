@@ -7,6 +7,7 @@
 #define _CREATURE_H
 
 #include "SimulationController.h"
+
 class SimulationController;
 
 class Creature {
@@ -22,6 +23,7 @@ protected:
 public:
     int position_x;
     int position_y;
+    bool is_alive;
     /**
      * @param food_count
      */

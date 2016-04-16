@@ -1,5 +1,5 @@
 # Add dependencies in the first line
-DEPENDENCIES=SimulationController Animal Carnivore CreatureFactory Creature Deer Grass Herbivore Land Plant Rabiit Sheep SquareYard Wolf Zombie main
+DEPENDENCIES=SimulationController Creature CreatureFactory Animal Carnivore Deer Grass Herbivore Land Plant Rabiit Sheep SquareYard Wolf Zombie main
 
 OBJECT_FILES=$(DEPENDENCIES) main.o
 TARGET_FILE=sfml-app

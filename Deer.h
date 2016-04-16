@@ -10,7 +10,7 @@
 
 
 class Deer: public Herbivore {
-	
+	public:
 	Deer(SimulationController *, int, int);
 };
 

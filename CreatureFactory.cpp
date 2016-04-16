@@ -8,19 +8,16 @@
 CreatureFactory::CreatureFactory(){
 }
 
-Creature * CreatureFactory::getCreature(std::string creature_type, int position_x, int position_y)
+Creature * CreatureFactory::getCreature(SimulationController * environment, std::string creature_type, int position_x, int position_y)
 {
-	switch(creature_type)
-	{
-		case "GRASS":
-		return new Grass(position_x, position_y);
-		break;
-		case "DEER":
-		return new Deer(position_x, position_y);
-		break;
-		case "WOLF":
-		return new Wolf(position_x, position_y);
-		break;
+	if (creature_type.compare("GRASS") == 0) {
+		return new Grass(environment, position_x, position_y);
+	}
+	else if (creature_type.compare("DEER") == 0) {
+		return new Deer(environment, position_x, position_y);
+	}
+	else if (creature_type.compare("WOLF") == 0) {
+		return new Deer(environment, position_x, position_y);
 	}
 
 }

@@ -31,7 +31,7 @@ SimulationController::SimulationController(){
 	{
 		for(y=0;y<grid_height;y++)
 		{
-			list_of_creatures.push_back(creature_factory.getCreature(std::string("GRASS"), x, y));
+			list_of_creatures.push_back(creature_factory.getCreature(this, std::string("GRASS"), x, y));
 		}
 	}
 
@@ -42,7 +42,7 @@ SimulationController::SimulationController(){
 			y = random_position%grid_width;
 
 			if(creature_location_map.at(random_position) == NULL){
-				new_creature = creature_factory.getCreature(std::string("DEER"), x, y);
+				new_creature = creature_factory.getCreature(this, std::string("DEER"), x, y);
 				std::pair<int, Creature *> created_creature = std::pair<int, Creature *>(random_position, new_creature);
 				creature_location_map.insert(created_creature);
 				break;
@@ -58,7 +58,7 @@ SimulationController::SimulationController(){
 			y = random_position%grid_width;
 
 			if(creature_location_map.at(random_position) == NULL){
-				new_creature = creature_factory.getCreature(std::string("WOLF"), x, y);
+				new_creature = creature_factory.getCreature(this, std::string("WOLF"), x, y);
 				std::pair<int, Creature *> created_creature = std::pair<int, Creature *>(random_position, new_creature);
 				creature_location_map.insert(created_creature);
 				break;
@@ -106,7 +106,7 @@ std::vector<Creature *>* SimulationController::getCreaturesAround(string class_t
 	return list_of_creatures;
 }
 
-Creature * SimulationController::getNearestCreature(string, int position_x, int position_y){
+Creature * SimulationController::getNearestCreature(string class_type, int position_x, int position_y){
 	int min_distance = grid_height*grid_width - 1;
 	Creature * closest_creature = 0;
 	for(map<int, Creature *>::iterator it= creature_location_map.begin(); it != creature_location_map.end(); it++){
