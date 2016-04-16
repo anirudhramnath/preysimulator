@@ -9,12 +9,25 @@
  * Plant implementation
  */
 
-Plant::Plant(int position_x, int position_y):Creature(position_x, position_y)
+Plant::Plant(SimulationController * environment, int position_x, int position_y):Creature(environment, position_x, position_y)
 {
 }
 /**
  * @param food_level
  */
+
+int Plant::getConsumed(int food_demand){
+	int return_value;
+	if(current_food_level < food_demand){
+		return_value = current_food_level;
+	}
+	else{
+		return_value = food_demand;
+	}
+	addFoodLevel(-food_demand);
+	return return_value;
+}
+
 int virtual Plant::getGraced(int food_level) {
 	int consumable_amount;
 	if(current_food_level > food_level){

@@ -19,17 +19,14 @@ protected:
     
 
 public: 
-    static const enum Direction { LEFT, RIGHT, UP, DOWN };
+    Animal(SimulationController *, int, int);
     void move();
     
     /**
      * @param food_level
      */
-    void grow(int food_count);
-
-    void eat(int food_level);
     
-    void age();
+    void growOld();
     
     void reproduce();
 
@@ -38,6 +35,10 @@ public:
     void getFood();
     
     void die();
+
+    void setPosition(int, int);
+
+    int getConsumed(int);
 };
 
 #endif //_ANIMAL_H

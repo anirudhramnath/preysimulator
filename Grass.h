@@ -10,6 +10,8 @@
 
 
 class Grass: public Plant {
+public:
+	Grass(SimulationController *, int, int);
 };
 
 #endif //_GRASS_H

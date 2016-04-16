@@ -42,6 +42,5 @@ void Creature::reproduce(){
 void Creature::metabolize() {
 	addFoodLevel(rate_of_metabolism);
 }
-void Creature::routine()=0;
 
 // write destructor

@@ -1,5 +1,5 @@
 #include <string>
-
+#include "Creature.h"
 #include "CreatureFactory.h"
 #include "Grass.h"
 #include "Deer.h"

@@ -10,6 +10,8 @@
 
 
 class Deer: public Herbivore {
+	
+	Deer(SimulationController *, int, int);
 };
 
 #endif //_DEER_H

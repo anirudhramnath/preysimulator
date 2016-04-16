@@ -11,8 +11,9 @@
 
 class Carnivore: public Animal {
 public: 
-    
+    Carnivore(SimulationController * environment, int position_x, int position_y);
     void chase();
+    void hunt();
 };
 
 #endif //_CARNIVORE_H

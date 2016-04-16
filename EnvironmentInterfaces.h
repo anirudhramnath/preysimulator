@@ -1,4 +1,6 @@
 #include <typeinfo>
+#include <vector>
+#include <exception>
 #ifndef _ENVIRONMENT_INTERFACES
 #define _ENVIRONMENT_INTERFACES
 

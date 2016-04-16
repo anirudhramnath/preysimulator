@@ -8,6 +8,7 @@
 
 #include "SimulationController.h"
 #include "CreatureFactory.h"
+#include "Creature.h"
 
 /**
  * SimulationController implementation
@@ -109,8 +110,8 @@ Creature * SimulationController::getNearestCreature(string, int position_x, int 
 	int min_distance = grid_height*grid_width - 1;
 	Creature * closest_creature = 0;
 	for(map<int, Creature *>::iterator it= creature_location_map.begin(); it != creature_location_map.end(); it++){
-		int current_distance = abs(it->first()-(position_x*grid_width + position_y));
-		Creature * current_creature = it->second();
+		int current_distance = abs(it->first-(position_x*grid_width + position_y));
+		Creature * current_creature = it->second;
 		if(current_distance < min_distance && typeid(class_type) == typeid(current_creature)){
 			min_distance = current_distance;
 			closest_creature = current_creature;
@@ -120,9 +121,9 @@ Creature * SimulationController::getNearestCreature(string, int position_x, int 
 }
 
 void SimulationController::changePosition(Creature * creature,int position_x,int position_y){
-	Creature * creature_in_position = creature_location_map.get(position_x*grid_width+position_y);
+	Creature * creature_in_position = creature_location_map.at(position_x*grid_width+position_y);
 	if(creature_in_position == 0){
-		map<int, Creature *>::iterator it = creature_location_map.at(creature->position_x*grid_width+creature->position_y);
+		map<int, Creature *>::iterator it = creature_location_map.find(creature->position_x*grid_width+creature->position_y);
 		creature_location_map.erase(it);
 		creature_location_map[position_x*grid_width+position_y] = creature;
 	}
@@ -137,15 +138,15 @@ std::vector<Creature *> SimulationController::getCreatureList() {
 		creatures.push_back(list_of_creatures[i]);
 	}
 
-	std::map<std::int, Creature*>::iterator mapIter;
+	std::map<int, Creature*>::iterator mapIter;
 	for (mapIter = creature_location_map.begin(); mapIter != creature_location_map.end(); ++mapIter) {
-       creatures.push_back(append(mapIter->second));
+       creatures.push_back(mapIter->second);
     }
 
     return creatures;
 }
 
-void addChild(Creature * child, int position_x, int position_y){
+void SimulationController::addChild(Creature * child, int position_x, int position_y){
 	int positions[8][2] ={
 		{position_x-1, position_y-1},
 		{position_x-1, position_y},
@@ -175,5 +176,4 @@ void SimulationController::stop() {
 void SimulationController::pause() {
 
 }
-class NotEmpty: public std::exception{
-};
+

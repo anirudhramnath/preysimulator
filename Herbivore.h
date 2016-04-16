@@ -12,12 +12,10 @@
 
 class Herbivore: public Animal {
 public: 
-    
-    int getConsumed();
-    
+    Herbivore::Herbivore(SimulationController *, int, int);
     int currentAppetite();
 
-    void evade();
+    void grace();
 };
 
 #endif //_HERBIVORE_H

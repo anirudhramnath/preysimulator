@@ -10,18 +10,21 @@
  */
 
 
+Carnivore::Carnivore(SimulationController * environment, int position_x, int position_y):Animal(environment, position_x, position_y){
+	
+}
 void Carnivore::chase() {
 
 }
 
 void Carnivore::getFood(){
-	this->hunt();
+	hunt();
 }
 
 void Carnivore::hunt(){
 	vector<Creature *> list_of_animals = environment->getCreaturesAround(Deer, position_x, position_y);
 	Deer * deer = (Deer *)list_of_animals[0];
-	this->addFoodlevel(deer->getHunted());
+	this->addFoodlevel(deer->getConsumed());
 }
 
 Creature * Carnivore::getInstance(){

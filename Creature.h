@@ -12,25 +12,27 @@ class SimulationController;
 class Creature {
 
 protected: 
-    static const int reproduction_treshold;
-    static const int min_food_level;
-    static const int max_food_level;
-    static const int rate_of_metabolism;
+    int reproduction_treshold;
+    int min_food_level;
+    int max_food_level;
+    int rate_of_metabolism;
     int current_food_level;
-    int position_x;
-    int position_y;
     SimulationController * environment;
 
-public: 
-    
+public:
+    int position_x;
+    int position_y;
     /**
      * @param food_count
      */
-    Creature();
+    Creature(SimulationController * , int, int);
+    void setPosition(int position_x, int position_y);
     void addFoodLevel(int food_points);
     void metabolize();
     void routine();
     void reproduce();
+    virtual Creature * getInstance();
+    virtual int getConsumed(int )=0;
 };
 
 #endif //_CREATURE_H

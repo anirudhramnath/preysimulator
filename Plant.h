@@ -15,7 +15,9 @@ public:
     /**
      * @param food_level
      */
-    int getGraced(void food_level);
+    Plant(SimulationController * , int, int);
+    int getGraced(int food_level);
+    int getConsumed(int);
 };
 
 #endif //_PLANT_H

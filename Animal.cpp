@@ -13,35 +13,15 @@ void Animal::Animal(SimulationController * environment, int position_x, int posi
 	age = 0;
 	is_alive = 1;
 }
-void Animal::grow(void food_count) {
-	addFoodLevel(food_count);
-}
-void Animal::changePosition(Direction direction) {
-	switch direction:
-	{
-		case LEFT:
-		position_x -= 1;
-		break;
-		case RIGHT:
-		position_x += 1;
-		break;
-		case UP:
-		position_y -= 1;
-		break;
-		case DOWN:
-		position_y += 1;
-		break;
-	}
-}
+
+
 
 /**
  * @param food_level
  */
-void Animal::eat(int food_level) {
-    current_food_level += food_level;
-}
 
-int Animal::getHunted(){
+
+int Animal::getConsumed(){
 	if(current_food_level < evading_treshold)
 		die();
 		return current_food_level;
@@ -49,7 +29,7 @@ int Animal::getHunted(){
 		return 0;
 }
 
-void Animal::age() {
+void Animal::growOld() {
     if(age == max_age){
     	die();
     }
@@ -61,9 +41,6 @@ void Animal::reproduce() {
 
 }
 
-void virtual Animal::Routine(){
-
-}
 
 Creature * Animal::getInstance(){
 	return (Creature *)Animal(environment, 0, 0);

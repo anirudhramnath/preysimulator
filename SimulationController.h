@@ -29,7 +29,10 @@ public:
     std::vector<Creature *>* getCreaturesAround(std::string, int position_x, int position_y);
     Creature * getNearestCreature(std::string, int position_x, int position_y);
     void changePosition(Creature * creature,int position_x,int position_y);
+    void addChild(Creature * child, int position_x, int position_y);
 };
 
+class NotEmpty: public std::exception{
+};
 
 #endif //_SIMULATIONCONTROLLER_H
