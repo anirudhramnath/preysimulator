@@ -14,7 +14,6 @@
 class Herbivore: public Animal {
 public: 
     Herbivore(SimulationController *, int, int);
-    int currentAppetite();
     virtual void getFood();
     virtual void move();
     virtual Creature * getInstance()=0;

@@ -19,7 +19,7 @@ void Herbivore::getFood(){
 
 void Herbivore::grace(){
 	Grass * grass = (Grass *)environment->getCreaturesIn(typeid(Grass), position_x, position_y);
-	this->addFoodLevel(grass->getGraced(this->currentAppetite())); // dont need appetite. we can impl it in Grass class. more grass = more food grazed
+	this->addFoodLevel(grass->getGraced(10)); // dont need appetite. we can impl it in Grass class. more grass = more food grazed
 }
 
 void Herbivore::move(){
