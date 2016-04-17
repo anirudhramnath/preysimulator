@@ -1,10 +1,10 @@
 /**
  * Project Untitled
  */
-
+#include <typeinfo>
 
 #include "Carnivore.h"
-
+#include "Deer.h"
 /**
  * Carnivore implementation
  */
@@ -24,7 +24,7 @@ void Carnivore::getFood(){
 void Carnivore::hunt(){
 	vector<Creature *> list_of_animals = environment->getCreaturesAround(typeid(Deer), position_x, position_y);
 	Deer * deer = (Deer *)list_of_animals[0];
-	this->addFoodlevel(deer->getConsumed());
+	this->addFoodLevel(deer->getConsumed());
 }
 
 Creature * Carnivore::getInstance(){

@@ -20,7 +20,7 @@ protected:
 
 public: 
     Animal(SimulationController *, int, int);
-    void move();
+    void virtual move()=0;
     
     /**
      * @param food_level

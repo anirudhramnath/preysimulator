@@ -1,9 +1,10 @@
 /**
  * Project Untitled
  */
-
+#include <typeinfo>
 #include "Herbivore.h"
-
+#include "Grass.h"
+using namespace std;
 /**
  * Herbivore implementation
  */
@@ -18,14 +19,14 @@ void Herbivore::getFood(){
 
 void Herbivore::grace(){
 	Grass * grass = (Grass *)environment->getCreaturesIn(typeid(Grass), position_x, position_y);
-	this->addFoodLevel(grass->getGraced(this.currentAppetite())); // dont need appetite. we can impl it in Grass class. more grass = more food grazed
+	this->addFoodLevel(grass->getGraced(this->currentAppetite())); // dont need appetite. we can impl it in Grass class. more grass = more food grazed
 }
 
 void Herbivore::move(){
 	Creature * nearest_creature = environment->getNearestCreature(typeid(Grass), position_x, position_y);
 	try{
 		if(nearest_creature != 0){
-			if(abs(position_x-nearest_creature->position_x)>abs(position_y-nearest_creature->position_y){
+			if(position_x-nearest_creature->position_x>position_y-nearest_creature->position_y){
 				if(position_x-nearest_creature->position_x>0){
 	                setPosition(position_x-1, position_y);
 	                return;
@@ -68,7 +69,4 @@ void Herbivore::move(){
 	}
 				
 	
-}
-Creature * Herbivore::getInstance(){
-	return (Creature *)Herbivore(environment, 0, 0);
 }

@@ -68,7 +68,7 @@ SimulationController::SimulationController(){
 	}
 }
 
-Creature * SimulationController::getCreaturesIn(type_info class_type, int position_x, int position_y){
+Creature * SimulationController::getCreaturesIn(const type_info & class_type, int position_x, int position_y){
 	
 	Creature * creature_in_cell = creature_location_map.at(position_x*grid_width+position_y);
 	if(typeid(creature_in_cell)==class_type){
@@ -80,7 +80,7 @@ Creature * SimulationController::getCreaturesIn(type_info class_type, int positi
 	}
 }
 
-std::vector<Creature *>* SimulationController::getCreaturesAround(type_info class_type, int position_x, int position_y){
+std::vector<Creature *>* SimulationController::getCreaturesAround(const type_info & class_type, int position_x, int position_y){
 	int list_of_surrounding_cells[] = {
 		(position_x-1)*grid_width+(position_y-1),
 		(position_x-1)*grid_width+(position_y),
@@ -107,7 +107,7 @@ std::vector<Creature *>* SimulationController::getCreaturesAround(type_info clas
 	return list_of_creatures;
 }
 
-Creature * SimulationController::getNearestCreature(type_info class_type, int position_x, int position_y){
+Creature * SimulationController::getNearestCreature(const type_info & class_type, int position_x, int position_y){
 	int min_distance = grid_height*grid_width - 1;
 	Creature * closest_creature = 0;
 	for(map<int, Creature *>::iterator it= creature_location_map.begin(); it != creature_location_map.end(); it++){

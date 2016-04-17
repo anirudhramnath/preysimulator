@@ -10,6 +10,8 @@
 #include "Creature.h"
 #include "CreatureFactory.h"
 
+using namespace std;
+
 class Creature;
 
 class SimulationController{
@@ -25,9 +27,9 @@ public:
     void stop();
     void pause();
     std::vector<Creature *> getCreatureList();
-    Creature * getCreaturesIn( std::type_info, int, int );
-    std::vector<Creature *>* getCreaturesAround(std::type_info, int position_x, int position_y);
-    Creature * getNearestCreature( std::type_info, int position_x, int position_y);
+    Creature * getCreaturesIn(const type_info&, int, int );
+    std::vector<Creature *>* getCreaturesAround(const type_info&, int position_x, int position_y);
+    Creature * getNearestCreature(const type_info&, int position_x, int position_y);
     void changePosition(Creature * creature,int position_x,int position_y);
     void addChild(Creature * child, int position_x, int position_y);
 };

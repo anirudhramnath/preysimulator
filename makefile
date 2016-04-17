@@ -24,7 +24,7 @@ CreatureFactory.o: CreatureFactory.cpp Creature.o Grass.o Deer.o Wolf.o
 	g++ -c CreatureFactory.cpp
 
 Deer.o: Deer.cpp Herbivore.o SimulationController.o
-	g++ -c CarDeernivore.cpp
+	g++ -c Carnivore.cpp
 
 Land.o: Land.cpp SquareYard.o SimulationController.o Creature.o
 	g++ -c Land.cpp
