@@ -15,6 +15,7 @@ public:
     Carnivore(SimulationController * environment, int position_x, int position_y);
     virtual void getFood();
     virtual void move();
+    virtual Creature * getInstance();
     void chase();
     void hunt();
 };
