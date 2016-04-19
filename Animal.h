@@ -15,11 +15,10 @@ protected:
     
     
     int age;
-    int is_alive;
     
 
 public: 
-    Animal(SimulationController *, int, int);
+    Animal(SimulationController *, int, int, int);
     void virtual move()=0;
     int evading_treshold;
     int max_age;
@@ -37,6 +36,9 @@ public:
 
     virtual Creature * getInstance()=0;
     
+    virtual void metabolize();
+    virtual void routine();
+
     void die();
 
     void setPosition(int, int);

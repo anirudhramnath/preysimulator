@@ -1,6 +1,7 @@
 /**
  * Project Untitled
  */
+#include <iostream>
 
 
 #include "Animal.h"
@@ -10,8 +11,8 @@
  * Animal implementation
  */
 
-Animal::Animal(SimulationController * environment, int position_x, int position_y):
-Creature(environment, position_x, position_y){
+Animal::Animal(SimulationController * environment, int position_x, int position_y, int min_food):
+Creature(environment, position_x, position_y, min_food){
 	age = 0;
 	is_alive = 1;
 }
@@ -24,6 +25,7 @@ Creature(environment, position_x, position_y){
 
 
 int Animal::getConsumed(int temp){
+	cout<<"current foodlevel of the hunted animal"<<current_food_level<<"\n";
 	if(current_food_level < evading_treshold) {
 		die();
 		return current_food_level;
@@ -33,6 +35,7 @@ int Animal::getConsumed(int temp){
 }
 
 void Animal::growOld() {
+	age+=1;
     if(age == max_age){
     	die();
     }
@@ -49,11 +52,24 @@ void Animal::reproduce() {
 }*/
 
 void Animal::setPosition(int position_x, int position_y){
+	cout<<"position_x"<<position_x<<"\n";
 	environment->changePosition(this, position_x, position_y);
 	Creature::position_x = position_x;
 	Creature::position_y = position_y;
 }
 
+void Animal::metabolize(){
+	Creature::metabolize();
+	growOld();
+	if(current_food_level == 0){
+		die();
+	}
+}
 void Animal::die() {
 	is_alive = 0;
+}
+void Animal::routine(){
+	move();
+	getFood();
+	metabolize();
 }

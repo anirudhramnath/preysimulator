@@ -1,7 +1,9 @@
 /**
  * Project Untitled
  */
+#include <cstdlib>
 #include <typeinfo>
+#include <iostream>
 
 #include "Carnivore.h"
 #include "Deer.h"
@@ -10,7 +12,7 @@
  */
 
 
-Carnivore::Carnivore(SimulationController * environment, int position_x, int position_y):Animal(environment, position_x, position_y){
+Carnivore::Carnivore(SimulationController * environment, int position_x, int position_y, int min_food):Animal(environment, position_x, position_y, min_food){
 	
 }
 void Carnivore::chase() {
@@ -23,19 +25,19 @@ void Carnivore::getFood(){
 
 void Carnivore::hunt(){
 	vector<Creature *>* list_of_animals = environment->getCreaturesAround(typeid(Deer), position_x, position_y);
-	Deer * deer = (Deer *)(list_of_animals->at(0));
-	this->addFoodLevel(deer->getConsumed(0));
+	cout<<list_of_animals->size()<<"count\n";
+	if(list_of_animals->size() !=0){
+		Deer * deer = (Deer *)(list_of_animals->at(0));
+		this->addFoodLevel(deer->getConsumed(0));
+	}	
 }
 
-Creature * Carnivore::getInstance(){
-	return (Creature *) new Carnivore(environment, 0, 0);
-}
 
 void Carnivore::move(){
 	Creature * nearest_creature = environment->getNearestCreature(typeid(Deer), position_x, position_y);
 	try{
 		if(nearest_creature != 0){
-			if(position_x-nearest_creature->position_x>position_y-nearest_creature->position_y){
+			if(abs(position_x-nearest_creature->position_x)>abs(position_y-nearest_creature->position_y)){
 				if(position_x-nearest_creature->position_x>0){
 	                setPosition(position_x-1, position_y);
 	                return;
@@ -79,3 +81,4 @@ void Carnivore::move(){
 				
 	
 }
+

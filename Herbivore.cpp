@@ -1,6 +1,8 @@
 /**
  * Project Untitled
  */
+#include <cstdlib>
+#include <iostream>
 #include <typeinfo>
 #include "Herbivore.h"
 #include "Grass.h"
@@ -9,7 +11,7 @@ using namespace std;
  * Herbivore implementation
  */
 
-Herbivore::Herbivore(SimulationController * environment, int position_x,int position_y):Animal(environment, position_x, position_y){
+Herbivore::Herbivore(SimulationController * environment, int position_x,int position_y, int min_food):Animal(environment, position_x, position_y, min_food){
 	
 }
 
@@ -23,50 +25,63 @@ void Herbivore::grace(){
 }
 
 void Herbivore::move(){
-	Creature * nearest_creature = environment->getNearestCreature(typeid(Grass), position_x, position_y);
-	try{
-		if(nearest_creature != 0){
-			if(position_x-nearest_creature->position_x>position_y-nearest_creature->position_y){
-				if(position_x-nearest_creature->position_x>0){
-	                setPosition(position_x-1, position_y);
-	                return;
-				}
-				else if(position_x-nearest_creature->position_x<0){
-					setPosition(position_x+1, position_y);
-					return;
-				}
+	vector<Creature *>* grasses_around = environment->getCreaturesAround(typeid(Grass), position_x, position_y);
+	int max_grass_food = -1;
+	Grass * max_grass;
+	cout<<"NO OF CANDIDATES"<<grasses_around->size()<<"\n";
+	for(int i=0;i<grasses_around->size();i++){
+		cout<<"grass at:"<<grasses_around->at(i)->position_x<<","<<grasses_around->at(i)->position_y<<"has:"<<grasses_around->at(i)->current_food_level<<"\n";
+		if(grasses_around->at(i)->current_food_level > max_grass_food){
+			max_grass = (Grass *)grasses_around->at(i);
+			max_grass_food = grasses_around->at(i)->current_food_level;
+
+		}
+	}
+	cout<<"max grass position"<<max_grass->position_x<<","<<max_grass->position_y<<"\n";
+	if(max_grass_food != 0){
+		try{
+			if(position_x-max_grass->position_x > 0)
+			{
+				setPosition(position_x-1, position_y);
+				return;
+			}
+			else if(position_x-max_grass->position_x < 0) {
+				
+				setPosition(position_x+1, position_y);
+				return;
 			}
 			else{
-				if(position_y-nearest_creature->position_y>0){
-	                setPosition(position_x, position_y-1);
-	                return;
+				if(position_y-max_grass->position_y > 0)
+				{
+					setPosition(position_x, position_y-1);
+					return;
 				}
-				else if(position_y-nearest_creature->position_y<0){
+				else if(position_y-max_grass->position_y < 0) {
 					setPosition(position_x, position_y+1);
 					return;
 				}	
 			}
 		}
+		catch(NotEmpty){
+			cout<<"hit";
+		}
 	}
-	catch(NotEmpty){
-
-	}
-		
+	
 	int positions[4][2] = {
 		{position_x-1, position_y},
 		{position_x+1, position_y},
 		{position_x, position_y-1},
 		{position_x, position_y+1}
 	};
-	for(int i =0;i<4;i++){
+	cout<<"hit2";
+	while(1){
 		try{
-			setPosition(positions[i][0], positions[i][1]);
+			setPosition(positions[rand()%4][0], positions[rand()%4][1]);
 			return;
 		}
 		catch(NotEmpty){
 
 		}
 	}
-				
 	
 }

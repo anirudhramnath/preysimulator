@@ -17,7 +17,7 @@ Creature * CreatureFactory::getCreature(SimulationController * environment, std:
 		return new Deer(environment, position_x, position_y);
 	}
 	else if (creature_type.compare("WOLF") == 0) {
-		return new Deer(environment, position_x, position_y);
+		return new Wolf(environment, position_x, position_y);
 	}
 
 }

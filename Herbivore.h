@@ -13,7 +13,7 @@
 
 class Herbivore: public Animal {
 public: 
-    Herbivore(SimulationController *, int, int);
+    Herbivore(SimulationController *, int, int, int);
     virtual void getFood();
     virtual void move();
     virtual Creature * getInstance()=0;

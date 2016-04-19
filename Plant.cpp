@@ -9,7 +9,7 @@
  * Plant implementation
  */
 
-Plant::Plant(SimulationController * environment, int position_x, int position_y):Creature(environment, position_x, position_y)
+Plant::Plant(SimulationController * environment, int position_x, int position_y, int min_food):Creature(environment, position_x, position_y, min_food)
 {
 }
 /**
@@ -40,10 +40,8 @@ int Plant::getGraced(int food_level) {
 	return consumable_amount;
 
 }
-Creature * Plant::getInstance(){
-	return (Creature *)new Plant(environment, 0, 0);
-}
 
-void routine(){
-	//metabolise();
+
+void Plant::routine(){
+	metabolize();
 }

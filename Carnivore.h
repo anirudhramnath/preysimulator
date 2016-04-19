@@ -12,10 +12,10 @@
 
 class Carnivore: public Animal {
 public: 
-    Carnivore(SimulationController * environment, int position_x, int position_y);
+    Carnivore(SimulationController * environment, int position_x, int position_y, int);
     virtual void getFood();
     virtual void move();
-    virtual Creature * getInstance();
+    virtual Creature * getInstance()=0;
     void chase();
     void hunt();
 };

@@ -15,10 +15,11 @@ public:
     /**
      * @param food_level
      */
-    Plant(SimulationController * , int, int);
+    Plant(SimulationController * , int, int, int);
     int getGraced(int food_level);
     int getConsumed(int);
-    virtual Creature * getInstance();
+    virtual void routine();
+    virtual Creature * getInstance()=0;
 };
 
 #endif //_PLANT_H

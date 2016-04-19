@@ -11,9 +11,9 @@
 
 
 
-Grass::Grass(SimulationController * environment, int position_x, int position_y):Plant(environment, position_x, position_y){
-	min_food_level = 0;
-	max_food_level = 500;
+Grass::Grass(SimulationController * environment, int position_x, int position_y):Plant(environment, position_x, position_y, 10){
+	min_food_level = 10;
+	max_food_level = 300;
 	reproduction_treshold = 101;
 	rate_of_metabolism = -10;
 }

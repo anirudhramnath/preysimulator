@@ -11,7 +11,7 @@
 
 
 	
-Wolf::Wolf(SimulationController * environment, int position_x, int position_y):Carnivore(environment, position_x, position_y){
+Wolf::Wolf(SimulationController * environment, int position_x, int position_y):Carnivore(environment, position_x, position_y, 500){
 	min_food_level = 500;
 	max_food_level = 5000;
 	max_age = 50;
