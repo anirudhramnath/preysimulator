@@ -213,15 +213,15 @@ void SimulationController::addChild(Creature * child, int position_x, int positi
 
 void SimulationController::start() {
 	
-	Deer * deer = (Deer *)(getNearestCreature(typeid(Deer), 10, 10));
-	cout<<deer->position_x<<","<<deer->position_y<<"\n";
+	Wolf * wolf = (Wolf *)(getNearestCreature(typeid(Wolf), 10, 10));
+	cout<<wolf->position_x<<","<<wolf->position_y<<"\n";
 	for(int i=0;i<25;i++){
-		deer->move();
-		deer->getFood();
-		//deer->metabolize();
-		//deer->growOld();
-		cout<<"After movement ..."<<deer->is_alive<<"\n";
-		cout<<deer->position_x<<","<<deer->position_y<<deer->current_food_level<<"\n";
+		wolf->move();
+		wolf->getFood();
+		//wolf->metabolize();
+		//wolf->growOld();
+		cout<<"After movement ..."<<wolf->is_alive<<"\n";
+		cout<<wolf->position_x<<","<<wolf->position_y<<wolf->current_food_level<<"\n";
 	}
 /*
 	Grass * grass = (Grass *)getCreaturesIn(typeid(Grass), 0, 0);

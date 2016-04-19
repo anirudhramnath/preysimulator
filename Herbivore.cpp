@@ -67,16 +67,18 @@ void Herbivore::move(){
 		}
 	}
 	
-	int positions[4][2] = {
-		{position_x-1, position_y},
-		{position_x+1, position_y},
-		{position_x, position_y-1},
-		{position_x, position_y+1}
-	};
-	cout<<"hit2";
-	while(1){
+	std::vector<std::pair<int, int> > positions = std::vector<std::pair<int, int> >();
+	positions.push_back(std::pair<int, int>(position_x-1, position_y));
+	positions.push_back(std::pair<int, int>(position_x+1, position_y));
+	positions.push_back(std::pair<int, int>(position_x, position_y-1));
+	positions.push_back(std::pair<int, int>(position_x, position_y+1));
+
+	while(positions.size() > 0){
 		try{
-			setPosition(positions[rand()%4][0], positions[rand()%4][1]);
+			int selected_index = rand()%positions.size();
+			std::pair<int, int> selected_position = positions[selected_index];
+			setPosition(selected_position.first, selected_position.second);
+			positions.erase(positions.begin()+selected_index);
 			return;
 		}
 		catch(NotEmpty){

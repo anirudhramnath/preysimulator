@@ -52,7 +52,7 @@ void Animal::reproduce() {
 }*/
 
 void Animal::setPosition(int position_x, int position_y){
-	cout<<"position_x"<<position_x<<"\n";
+	cout<<"set position tried for"<<position_x<<","<<position_y<<"\n";
 	environment->changePosition(this, position_x, position_y);
 	Creature::position_x = position_x;
 	Creature::position_y = position_y;
