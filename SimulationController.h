@@ -32,6 +32,8 @@ public:
     Creature * getNearestCreature(const type_info&, int position_x, int position_y);
     void changePosition(Creature * creature,int position_x,int position_y);
     void addChild(Creature * child, int position_x, int position_y);
+    void removeCreature(Creature *);
+    std::vector<std::pair<int, int> > * SimulationController::getPointsAround(int position_x, int position_x);
 };
 
 class NotEmpty: public std::exception{

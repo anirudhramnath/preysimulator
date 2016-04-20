@@ -36,6 +36,7 @@ void Carnivore::hunt(){
 void Carnivore::move(){
 	Creature * nearest_creature = environment->getNearestCreature(typeid(Deer), position_x, position_y);
 	cout<<"position of animal being chased"<<nearest_creature->position_x<<", "<<nearest_creature->position_y<<"\n";
+	
 	try{
 		if(nearest_creature != 0){
 			if(abs(position_x-nearest_creature->position_x)>abs(position_y-nearest_creature->position_y)){

@@ -152,7 +152,7 @@ Creature * SimulationController::getNearestCreature(const type_info & class_type
 	int min_distance = grid_height*grid_width - 1;
 	Creature * closest_creature = 0;
 	for(map<int, Creature *>::iterator it= creature_location_map.begin(); it != creature_location_map.end(); it++){
-		int current_distance = abs(it->first-(position_x*grid_width + position_y));
+		int current_distance = abs(it->second->position_x-position_x) + abs(it->second->position_y-position_y);
 		Creature * current_creature = it->second;
 		//cout<<"Creature type"<<typeid(*current_creature).name()<<"\n";
 		if(current_distance < min_distance && class_type == typeid(*current_creature)){
@@ -193,7 +193,29 @@ std::vector<Creature *> SimulationController::getCreatureList() {
 }
 
 void SimulationController::addChild(Creature * child, int position_x, int position_y){
-	int positions[8][2] ={
+	std::vector<std::pair<int, int> > * positions = getPointsAround(position_x, position_y);
+
+	for(std::vector<pair<int, int> >::iterator item=positions.begin();item!=positions.end();item++){
+		try{
+		Creature * creature = creature_location_map[item->first*grid_width+item->second];
+		}
+		catch(std:out_of_range e){
+			creature_location_map[item->first*grid_width+item->second] = child;
+		}
+	}
+}
+void SimulationController::removeCreature(Creature * creature){
+	std::map<int, Creature*>::iterator mapIter;
+	for (mapIter = creature_location_map.begin(); mapIter != creature_location_map.end(); ++mapIter) {
+		if(creature == mapIter->second){
+			creature_location_map.erase(mapIter);
+		}
+    }
+
+}
+
+std::vector<std::pair<int, int> > * SimulationController::getPointsAround(int position_x, int position_x){
+	int list_of_coordinates[8][2] ={
 		{position_x-1, position_y-1},
 		{position_x-1, position_y},
 		{position_x-1, position_y+1},
@@ -203,12 +225,12 @@ void SimulationController::addChild(Creature * child, int position_x, int positi
 		{position_x+1, position_y},
 		{position_x+1, position_y+1}
 	};
+	std::vector<std::pair<int, int> > * positions = new std::vector<std::pair<int, int> >();
 	for(int i=0;i<8;i++){
-		Creature * creature = creature_location_map[positions[i][0]*grid_width+positions[i][1]];
-		if(creature == 0){
-			creature_location_map[positions[i][0]*grid_width+positions[i][1]] = child;
-		}
+		if(list_of_coordinates[i][0]>=0 && list_of_coordinates[i][0]<grid_height && list_of_coordinates[i][1]>=0 && list_of_coordinates[i][1]<grid_width)
+			positions->push_back(std::pair(list_of_coordinates[i][0], list_of_coordinates[i][1]));
 	}
+	return positions;
 }
 
 void SimulationController::start() {

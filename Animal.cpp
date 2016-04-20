@@ -43,7 +43,9 @@ void Animal::growOld() {
 
 
 void Animal::reproduce() {
-
+	if(current_food_level> max_food_level * reproduction_treshold/(float)100){
+		environment->addCreature(getInstance());
+	}
 }
 
 
@@ -66,6 +68,7 @@ void Animal::metabolize(){
 	}
 }
 void Animal::die() {
+	environment->removeCreature(this);
 	is_alive = 0;
 }
 void Animal::routine(){
