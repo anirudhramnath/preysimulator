@@ -26,14 +26,14 @@ public:
     void start();
     void stop();
     void pause();
-    std::vector<Creature *> getCreatureList();
+    std::vector<Creature *>  * getCreatureList();
     Creature * getCreaturesIn(const type_info&, int, int );
     std::vector<Creature *>* getCreaturesAround(const type_info&, int position_x, int position_y);
     Creature * getNearestCreature(const type_info&, int position_x, int position_y);
     void changePosition(Creature * creature,int position_x,int position_y);
     void addChild(Creature * child, int position_x, int position_y);
     void removeCreature(Creature *);
-    std::vector<std::pair<int, int> > * SimulationController::getPointsAround(int position_x, int position_x);
+    std::vector<std::pair<int, int> > * getPointsAround(int position_x, int position_y);
 };
 
 class NotEmpty: public std::exception{

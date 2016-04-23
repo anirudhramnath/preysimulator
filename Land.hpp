@@ -50,7 +50,7 @@ class Land{
         int X;
         int Y;
 
-        void applyLandColor(Creature creature);
+        void applyLandColor(Creature * creature);
 
 };
 

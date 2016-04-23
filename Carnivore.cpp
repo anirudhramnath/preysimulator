@@ -87,3 +87,5 @@ void Carnivore::move(){
 	
 }
 
+
+

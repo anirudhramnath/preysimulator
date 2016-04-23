@@ -32,7 +32,7 @@ public:
     void setPosition(int position_x, int position_y);
     void addFoodLevel(int food_points);
     void virtual metabolize();
-    void routine();
+    void virtual routine()=0;
     void reproduce();
     virtual Creature * getInstance();
     virtual int getConsumed(int )=0;

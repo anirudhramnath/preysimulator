@@ -11,7 +11,8 @@ using namespace std;
  * Herbivore implementation
  */
 
-Herbivore::Herbivore(SimulationController * environment, int position_x,int position_y, int min_food):Animal(environment, position_x, position_y, min_food){
+Herbivore::Herbivore(SimulationController * environment, int position_x,int position_y, int min_food):
+Animal(environment, position_x, position_y, min_food){
 	
 }
 
@@ -20,6 +21,7 @@ void Herbivore::getFood(){
 }
 
 void Herbivore::grace(){
+	cout<<"gracing attempted;;;;;;;;;;"<<endl;
 	Grass * grass = (Grass *)environment->getCreaturesIn(typeid(Grass), position_x, position_y);
 	this->addFoodLevel(grass->getGraced(10)); // dont need appetite. we can impl it in Grass class. more grass = more food grazed
 }
@@ -87,3 +89,4 @@ void Herbivore::move(){
 	}
 	
 }
+

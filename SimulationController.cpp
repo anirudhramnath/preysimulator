@@ -164,6 +164,8 @@ Creature * SimulationController::getNearestCreature(const type_info & class_type
 }
 
 void SimulationController::changePosition(Creature * creature,int position_x,int position_y){
+	cout<<"Position hange syuir&&&&&"<<endl;
+
 	try{
 		if(position_x<0 || position_x>grid_height-1 || position_y<0 || position_y>grid_width-1){
 			throw NotEmpty();
@@ -172,21 +174,27 @@ void SimulationController::changePosition(Creature * creature,int position_x,int
 		throw NotEmpty();
 	}
 	catch(std::out_of_range e){
+
+		cout<<"Position cahnge check success 111111111"<<endl;
 		map<int, Creature *>::iterator it = creature_location_map.find(creature->position_x*grid_width+creature->position_y);
-		creature_location_map.erase(it);
+		cout<<"Position cahnge check success 2222222"<<endl;
 		creature_location_map[position_x*grid_width+position_y] = creature;
+		cout<<"Position cahnge check success 3333333!"<<endl;
+		creature_location_map.erase(creature->position_x*grid_width+creature->position_y);
+		cout<<"Position cahnge check success !!!!!!!"<<endl;
+		
 	}
 }
 
-std::vector<Creature *> SimulationController::getCreatureList() {
-	std::vector<Creature *> creatures;
+std::vector<Creature *> * SimulationController::getCreatureList() {
+	std::vector<Creature *> * creatures = new std::vector<Creature *>();
 	for (int i=0; i < list_of_creatures.size(); ++i) {
-		creatures.push_back(list_of_creatures[i]);
+		creatures->push_back(list_of_creatures[i]);
 	}
 
 	std::map<int, Creature*>::iterator mapIter;
 	for (mapIter = creature_location_map.begin(); mapIter != creature_location_map.end(); ++mapIter) {
-       creatures.push_back(mapIter->second);
+       creatures->push_back(mapIter->second);
     }
 
     return creatures;
@@ -195,26 +203,32 @@ std::vector<Creature *> SimulationController::getCreatureList() {
 void SimulationController::addChild(Creature * child, int position_x, int position_y){
 	std::vector<std::pair<int, int> > * positions = getPointsAround(position_x, position_y);
 
-	for(std::vector<pair<int, int> >::iterator item=positions.begin();item!=positions.end();item++){
+	for(std::vector<pair<int, int> >::iterator item=positions->begin();item!=positions->end();item++){
 		try{
 		Creature * creature = creature_location_map[item->first*grid_width+item->second];
+		cout<<"got list of child"<<endl;
 		}
-		catch(std:out_of_range e){
+		catch(std::out_of_range e){
 			creature_location_map[item->first*grid_width+item->second] = child;
+			cout<<"CHild added KKKKKKKKKK"<<endl;
+			return;
 		}
 	}
 }
 void SimulationController::removeCreature(Creature * creature){
 	std::map<int, Creature*>::iterator mapIter;
-	for (mapIter = creature_location_map.begin(); mapIter != creature_location_map.end(); ++mapIter) {
+	/*for (mapIter = creature_location_map.begin(); mapIter != creature_location_map.end(); ++mapIter) {
 		if(creature == mapIter->second){
 			creature_location_map.erase(mapIter);
+			cout<<"DELETING *********55555555555"<<endl;
 		}
-    }
+    }*/
+	creature_location_map.erase(creature->position_x*grid_width+creature->position_y);
+	cout<<"DELETING *********55555555555"<<endl;
 
 }
 
-std::vector<std::pair<int, int> > * SimulationController::getPointsAround(int position_x, int position_x){
+std::vector<std::pair<int, int> > * SimulationController::getPointsAround(int position_x, int position_y){
 	int list_of_coordinates[8][2] ={
 		{position_x-1, position_y-1},
 		{position_x-1, position_y},
@@ -228,24 +242,29 @@ std::vector<std::pair<int, int> > * SimulationController::getPointsAround(int po
 	std::vector<std::pair<int, int> > * positions = new std::vector<std::pair<int, int> >();
 	for(int i=0;i<8;i++){
 		if(list_of_coordinates[i][0]>=0 && list_of_coordinates[i][0]<grid_height && list_of_coordinates[i][1]>=0 && list_of_coordinates[i][1]<grid_width)
-			positions->push_back(std::pair(list_of_coordinates[i][0], list_of_coordinates[i][1]));
+			positions->push_back(std::pair<int, int>(list_of_coordinates[i][0], list_of_coordinates[i][1]));
 	}
 	return positions;
 }
 
 void SimulationController::start() {
-	
+
+	vector<Creature *> * creatures = getCreatureList();
+    for (int i = 0; i < creatures->size(); ++i) {
+        creatures->at(i)->routine();
+    }
+    /*
 	Wolf * wolf = (Wolf *)(getNearestCreature(typeid(Wolf), 10, 10));
 	cout<<wolf->position_x<<","<<wolf->position_y<<"\n";
-	for(int i=0;i<25;i++){
-		wolf->move();
-		wolf->getFood();
+	
+		wolf->routine();
+
 		//wolf->metabolize();
 		//wolf->growOld();
 		cout<<"After movement ..."<<wolf->is_alive<<"\n";
 		cout<<wolf->position_x<<","<<wolf->position_y<<wolf->current_food_level<<"\n";
-	}
-/*
+	
+	
 	Grass * grass = (Grass *)getCreaturesIn(typeid(Grass), 0, 0);
 	grass->getGraced(10);
 	grass = (Grass *)getCreaturesIn(typeid(Grass), 0, 0);

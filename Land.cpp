@@ -10,6 +10,8 @@
 #include <vector>
 #include <typeinfo>
 #include <string>
+#include <thread>
+#include <chrono>
 
 #define BLACK sf::Color::Black
 #define WHITE sf::Color::White
@@ -66,14 +68,26 @@ using namespace std;
         }
     }
 
-    void Land::update(std::vector<Creature *> &creatures){
-        //controller->routine();
-        vector<Creature *> creatures = controller->getCreatureList();
-
-        /* Update Land */
-        for (int i = 0; i < creatures.size(); ++i) {
-            applyLandColor(creatures[i]);
+    void Land::update(){
+        std::this_thread::sleep_for (std::chrono::seconds(1));
+        for (int j=0; j<Y; j++) {
+            for (int i=0; i<X ;i++) {
+                // Set default color to White
+                Yard[i][j].SetInnerSquare(sf::Color::White);
+                Yard[i][j].SetOuterSquare(sf::Color::White);
+            }
         }
+        controller->start();
+        vector<Creature *> * creatures = controller->getCreatureList();
+        cout<<"\n"<<creatures->size()<<"\n";
+        static int i = 0;
+        /* Update Land */
+        for (int i = 0; i < creatures->size(); ++i) {
+            applyLandColor(creatures->at(i));
+        }
+        
+        cout<<"CREATURE DRAWN!!!!***************************\n";
+        i++;
     }
 
     void Land::draw(sf::RenderWindow &w){
@@ -115,29 +129,31 @@ using namespace std;
         Yard[x][y].SetOuterSquare(c);
     }
 
-    void Land::applyLandColor(Creature creature) {
+    void Land::applyLandColor(Creature * creature) {
         // check the type of creature and color the grid block
-        object_type = typeid(creature).name();
-        int pos_x = creature.position_x;
-        int pos_y = creature.position_y;
+        string object_type = typeid(*creature).name();
+        cout<<endl<<"Create name is "<<object_type<<endl;
 
-        if(object_type.compare("Grass") == 0){
-            Yard[pos_x][pos_y].setOuterColor(GREEN);
+        int pos_x = creature->position_x;
+        int pos_y = creature->position_y;
+
+        if(object_type.compare("5Grass") == 0){
+            Yard[pos_x][pos_y].SetOuterSquare(GREEN);
         }
         else if(object_type.compare("Sheep") == 0){
-            Yard[pos_x][pos_y].setInnerColor(BLUE);
+            Yard[pos_x][pos_y].SetInnerSquare(BLUE);
         }
-        else if(object_type.compare("Wolf") == 0){
-            Yard[pos_x][pos_y].setInnerColor(RED);
+        else if(object_type.compare("4Wolf") == 0){
+            Yard[pos_x][pos_y].SetInnerSquare(RED);
         }
         else if(object_type.compare("Zombie") == 0){
-            Yard[pos_x][pos_y].setInnerColor(BLACK);
+            Yard[pos_x][pos_y].SetInnerSquare(BLACK);
         }
         else if(object_type.compare("Rabiit") == 0){
-            Yard[pos_x][pos_y].setInnerColor(YELLOW);
+            Yard[pos_x][pos_y].SetInnerSquare(YELLOW);
         }
-        else if(object_type.compare("Deer") == 0){
-            Yard[pos_x][pos_y].setInnerColor(MAGENTA);
+        else if(object_type.compare("4Deer") == 0){
+            Yard[pos_x][pos_y].SetInnerSquare(BLUE);
         }
     }
 

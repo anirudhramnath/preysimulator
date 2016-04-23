@@ -10,13 +10,13 @@
 
 
 class Rabbit: public Herbivore {
-	static{
-		min_food_level = 50;
-		max_food_level = 500;
-		reproduction_treshold = 150;
-		rate_of_metabolism = 5;
-	}
+	static const int min_food_level = 50;
+    static const int max_food_level = 500;
+    static const int reproduction_treshold = 150;
+    static const int rate_of_metabolism = 5;
+public:
 	Rabbit(SimulationController *, int, int);
+    virtual Creature * getInstance();
 };
 
 #endif //_RABIIT_H

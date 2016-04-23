@@ -6,6 +6,7 @@
 
 #include "Animal.h"
 #include "SimulationController.h"
+#include "Rabiit.h"
 
 /**
  * Animal implementation
@@ -43,15 +44,16 @@ void Animal::growOld() {
 
 
 void Animal::reproduce() {
+	/*
 	if(current_food_level> max_food_level * reproduction_treshold/(float)100){
-		environment->addCreature(getInstance());
+		environment->addChild(getInstance(), position_x, position_y);
 	}
+	*/
+	environment->addChild(getInstance(), position_x, position_y);
 }
 
 
-/*Creature * Animal::getInstance(){
-	return (Creature *)new Animal(environment, 0, 0);
-}*/
+
 
 void Animal::setPosition(int position_x, int position_y){
 	cout<<"set position tried for"<<position_x<<","<<position_y<<"\n";
@@ -68,11 +70,15 @@ void Animal::metabolize(){
 	}
 }
 void Animal::die() {
+	cout<<"inside die method *******"<<endl;
 	environment->removeCreature(this);
 	is_alive = 0;
 }
 void Animal::routine(){
+	if (is_alive != 0) { 
 	move();
 	getFood();
+	reproduce();
 	metabolize();
+}
 }
