@@ -34,7 +34,7 @@ public:
     void virtual metabolize();
     void virtual routine()=0;
     void reproduce();
-    virtual Creature * getInstance();
+    virtual Creature * getInstance() =0;
     virtual int getConsumed(int )=0;
 };
 

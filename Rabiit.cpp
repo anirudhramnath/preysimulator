@@ -13,5 +13,6 @@ Herbivore(environment, position_x, position_y, 20){
 
 }
 Creature * Rabbit::getInstance(){
-	return (Creature *) new Rabbit(environment, 0, 0);
+    Creature * rabbit = new Rabbit(environment, 0, 0);
+	return rabbit;
 }

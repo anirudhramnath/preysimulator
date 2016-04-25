@@ -22,5 +22,6 @@ Carnivore(environment, position_x, position_y, 500){
 
 }
 Creature * Wolf::getInstance(){
-	return (Creature *) new Wolf(environment, 0, 0);
+    Creature * wolf = new Wolf(environment, 0, 0);
+	return wolf;
 }

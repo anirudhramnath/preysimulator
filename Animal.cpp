@@ -26,7 +26,7 @@ Creature(environment, position_x, position_y, min_food){
 
 
 int Animal::getConsumed(int temp){
-	cout<<"current foodlevel of the hunted animal"<<current_food_level<<"\n";
+	//cout<<"current foodlevel of the hunted animal"<<current_food_level<<"\n";
 	if(current_food_level < evading_treshold) {
 		die();
 		return current_food_level;
@@ -43,23 +43,11 @@ void Animal::growOld() {
 }
 
 
-void Animal::reproduce() {
-	/*
-	if(current_food_level> max_food_level * reproduction_treshold/(float)100){
-		environment->addChild(getInstance(), position_x, position_y);
-	}
-	*/
-	environment->addChild(getInstance(), position_x, position_y);
-}
-
-
-
-
 void Animal::setPosition(int position_x, int position_y){
-	cout<<"set position tried for"<<position_x<<","<<position_y<<"\n";
+	//cout<<"set position tried for"<<position_x<<","<<position_y<<"\n";
 	environment->changePosition(this, position_x, position_y);
-	Creature::position_x = position_x;
-	Creature::position_y = position_y;
+	this->position_x = position_x;
+	this->position_y = position_y;
 }
 
 void Animal::metabolize(){
@@ -70,15 +58,18 @@ void Animal::metabolize(){
 	}
 }
 void Animal::die() {
-	cout<<"inside die method *******"<<endl;
-	environment->removeCreature(this);
+	//cout<<"inside die method *******"<<endl;
 	is_alive = 0;
+	environment->removeCreature(this);
 }
 void Animal::routine(){
 	if (is_alive != 0) { 
-	move();
-	getFood();
-	reproduce();
-	metabolize();
-}
+		environment->printMap();
+		cout<<endl<<"Starting routine"<<endl;
+		move();
+		getFood();
+		reproduce();
+		environment->printMap();
+		metabolize();
+	}
 }

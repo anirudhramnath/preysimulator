@@ -125,9 +125,12 @@ std::vector<Creature *>* SimulationController::getCreaturesAround(const type_inf
 	{
 		try{
 			creature_in_cell = creature_location_map.at(list_of_surrounding_cells[i]);
+			if(creature_in_cell != 0)
+			{
 			if(typeid(*creature_in_cell)==class_type){
 				creatures->push_back(creature_in_cell);
 			}
+		}
 		}
 		catch(std::out_of_range e){
 
@@ -152,14 +155,21 @@ Creature * SimulationController::getNearestCreature(const type_info & class_type
 	int min_distance = grid_height*grid_width - 1;
 	Creature * closest_creature = 0;
 	for(map<int, Creature *>::iterator it= creature_location_map.begin(); it != creature_location_map.end(); it++){
+		//cout<<"IT first "<<it->first<<endl;
+		if(it->second != 0){
 		int current_distance = abs(it->second->position_x-position_x) + abs(it->second->position_y-position_y);
 		Creature * current_creature = it->second;
-		//cout<<"Creature type"<<typeid(*current_creature).name()<<"\n";
+		//cout<<"Creature type in NearestCreature"<<typeid(*current_creature).name()<<"\n";
 		if(current_distance < min_distance && class_type == typeid(*current_creature)){
 			min_distance = current_distance;
 			closest_creature = current_creature;
 		}
 	}
+	else{
+		cout<<"MAp has null value"<<endl;
+	}
+	}
+	cout<<"returning getNearestCreature"<<endl;
 	return closest_creature;
 }
 
@@ -202,16 +212,25 @@ std::vector<Creature *> * SimulationController::getCreatureList() {
 
 void SimulationController::addChild(Creature * child, int position_x, int position_y){
 	std::vector<std::pair<int, int> > * positions = getPointsAround(position_x, position_y);
-
+	cout <<endl<< "List of possible points around "<<position_x<<","<<position_y<<endl;
 	for(std::vector<pair<int, int> >::iterator item=positions->begin();item!=positions->end();item++){
+		cout <<endl<< "ITEM first, second "<<item->first<<","<<item->second<<endl;
 		try{
-		Creature * creature = creature_location_map[item->first*grid_width+item->second];
+			if (item->first*grid_width+item->second == 5) {
+				cout<<"VALUE IS 5"<<endl;
+			}
+		Creature * creature = creature_location_map.at(item->first*grid_width+item->second);
 		cout<<"got list of child"<<endl;
 		}
 		catch(std::out_of_range e){
+			if(child != 0){
 			creature_location_map[item->first*grid_width+item->second] = child;
 			cout<<"CHild added KKKKKKKKKK"<<endl;
 			return;
+		}
+		else{
+			cout<<"child null *****"<<endl;
+		}
 		}
 	}
 }
@@ -226,6 +245,15 @@ void SimulationController::removeCreature(Creature * creature){
 	creature_location_map.erase(creature->position_x*grid_width+creature->position_y);
 	cout<<"DELETING *********55555555555"<<endl;
 
+}
+
+void SimulationController::printMap (){
+	std::map<int, Creature*>::iterator mapIter;
+	cout<<"PRINTING MAP"<<endl;
+	for (mapIter = creature_location_map.begin(); mapIter != creature_location_map.end(); ++mapIter) {
+		cout<<mapIter->first<<typeid(* mapIter->second).name()<<endl;
+		
+	}
 }
 
 std::vector<std::pair<int, int> > * SimulationController::getPointsAround(int position_x, int position_y){
@@ -248,7 +276,6 @@ std::vector<std::pair<int, int> > * SimulationController::getPointsAround(int po
 }
 
 void SimulationController::start() {
-
 	vector<Creature *> * creatures = getCreatureList();
     for (int i = 0; i < creatures->size(); ++i) {
         creatures->at(i)->routine();

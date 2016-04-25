@@ -28,7 +28,7 @@ public:
     
     void growOld();
     
-    void reproduce();
+    //void reproduce();
 
     int getHunted();
 

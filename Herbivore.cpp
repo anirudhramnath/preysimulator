@@ -27,7 +27,9 @@ void Herbivore::grace(){
 }
 
 void Herbivore::move(){
+	cout<<endl<<"Breakpoint 1"<<endl;
 	vector<Creature *>* grasses_around = environment->getCreaturesAround(typeid(Grass), position_x, position_y);
+	cout<<endl<<"Breakpoint 2"<<endl;
 	int max_grass_food = -1;
 	Grass * max_grass;
 	cout<<"NO OF CANDIDATES"<<grasses_around->size()<<"\n";

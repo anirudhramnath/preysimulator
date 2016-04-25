@@ -24,6 +24,7 @@ private:
 public:
     SimulationController();
     void start();
+    void printMap();
     void stop();
     void pause();
     std::vector<Creature *>  * getCreatureList();

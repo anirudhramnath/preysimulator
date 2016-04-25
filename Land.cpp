@@ -132,7 +132,7 @@ using namespace std;
     void Land::applyLandColor(Creature * creature) {
         // check the type of creature and color the grid block
         string object_type = typeid(*creature).name();
-        cout<<endl<<"Create name is "<<object_type<<endl;
+        //cout<<endl<<"Create name is "<<object_type<<endl;
 
         int pos_x = creature->position_x;
         int pos_y = creature->position_y;
