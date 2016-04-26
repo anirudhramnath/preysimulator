@@ -1,9 +1,10 @@
 /**
  * Project Untitled
  */
-
+#include <cstdlib>
 #include <iostream>
 #include "Creature.h"
+
 /**
  * Creature implementation
  */
@@ -34,9 +35,11 @@ void Creature::addFoodLevel(int food_points) {
 
 
 void Creature::reproduce(){
-	//if((float)current_food_level/(float)max_food_level*100 > reproduction_treshold){
+	if(current_food_level >= reproduction_food && 
+		age >= reproduction_age && 
+		rand()%100 <= reproduction_probability){
 		environment->addChild(getInstance(), position_x, position_y);
-	//}
+	}
 }
 
 void Creature::metabolize() {

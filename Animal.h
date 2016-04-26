@@ -11,10 +11,9 @@
 
 class Animal: public Creature {
 protected: 
-    static const float reproduction_probability;
     
     
-    int age;
+    
     
 
 public: 

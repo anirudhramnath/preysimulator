@@ -16,7 +16,10 @@ protected:
     
 
 public:
-    int reproduction_treshold;
+    int age;
+    int reproduction_food;
+    int reproduction_age;
+    int reproduction_probability;
     int min_food_level;
     int max_food_level;
     int rate_of_metabolism;

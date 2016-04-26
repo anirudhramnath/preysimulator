@@ -13,6 +13,8 @@
 #include "Creature.h"
 #include "Grass.h"
 #include "Wolf.h"
+#include "Rabiit.h"
+#include "Lion.h"
 
 /**
  * SimulationController implementation
@@ -23,11 +25,14 @@ SimulationController::SimulationController(){
 	int x;
 	int y;
 	int random_position;
-	int no_of_deer = 10;
-	int no_of_wolf = 10;
+	int no_of_deer = 5;
+    int no_of_wolf = 3;
+    int no_of_rabbit = 10;
+    int no_of_rat = 5;
+    int no_of_lion = 2;
 	Creature * new_creature;
-	grid_width = 20;
-	grid_height = 20;
+	grid_width = 30;
+	grid_height = 30;
 	creature_location_map = std::map<int, Creature *>();
 	creature_factory = new CreatureFactory();
 	list_of_creatures = std::vector<Creature *>();
@@ -36,10 +41,10 @@ SimulationController::SimulationController(){
 		for(y=0;y<grid_height;y++)
 		{
 			list_of_creatures.push_back(creature_factory->getCreature(this, std::string("GRASS"), x, y));
-			cout<<list_of_creatures.size();
+			//cout<<list_of_creatures.size();
 		}
 	}
-	cout<<"Grass Created\n";
+	//cout<<"Grass Created\n";
 	for(int i=0;i<no_of_deer; i++){
 		do{
 			random_position = rand()%(grid_width*grid_height);
@@ -47,10 +52,10 @@ SimulationController::SimulationController(){
 			y = random_position%grid_width;
 			try{
 				creature_location_map.at(random_position);
-				cout<<"Location Not Empty\n";
+				//cout<<"Location Not Empty\n";
 			}
 			catch(const std::out_of_range & e){
-				cout<<"Empty Location Found\n";
+				//cout<<"Empty Location Found\n";
 				new_creature = creature_factory->getCreature(this, std::string("DEER"), x, y);
 				std::pair<int, Creature *> created_creature = std::pair<int, Creature *>(random_position, new_creature);
 				creature_location_map.insert(created_creature);
@@ -59,7 +64,49 @@ SimulationController::SimulationController(){
 			random_position ++;
 		}while(true);
 	}
-	cout<<"Deer Created\n";
+	//cout<<"Deer Created\n";
+
+	for(int i=0;i<no_of_rabbit; i++){
+		do{
+			random_position = rand()%(grid_width*grid_height);
+			x = random_position/grid_width;
+			y = random_position%grid_width;
+			try{
+				creature_location_map.at(random_position);
+				//cout<<"Location Not Empty\n";
+			}
+			catch(const std::out_of_range & e){
+				//cout<<"Empty Location Found\n";
+				new_creature = creature_factory->getCreature(this, std::string("RABBIT"), x, y);
+				std::pair<int, Creature *> created_creature = std::pair<int, Creature *>(random_position, new_creature);
+				creature_location_map.insert(created_creature);
+				break;
+			}
+			random_position ++;
+		}while(true);
+	}
+	//cout<<"Rabbit Created\n";
+
+	for(int i=0;i<no_of_rat; i++){
+		do{
+			random_position = rand()%(grid_width*grid_height);
+			x = random_position/grid_width;
+			y = random_position%grid_width;
+			try{
+				creature_location_map.at(random_position);
+				//cout<<"Location Not Empty\n";
+			}
+			catch(const std::out_of_range & e){
+				//cout<<"Empty Location Found\n";
+				new_creature = creature_factory->getCreature(this, std::string("RAT"), x, y);
+				std::pair<int, Creature *> created_creature = std::pair<int, Creature *>(random_position, new_creature);
+				creature_location_map.insert(created_creature);
+				break;
+			}
+			random_position ++;
+		}while(true);
+	}
+	//cout<<"Rat Created\n";
 
 	for(int i=0;i<no_of_wolf; i++){
 		do{
@@ -68,10 +115,10 @@ SimulationController::SimulationController(){
 			y = random_position%grid_width;
 			try{
 				creature_location_map.at(random_position);
-				cout<<"Location Not Empty\n";
+				//cout<<"Location Not Empty\n";
 			}
 			catch(const std::out_of_range & e){
-				cout<<"Empty Location Found\n";
+				//cout<<"Empty Location Found\n";
 				new_creature = creature_factory->getCreature(this, std::string("WOLF"), x, y);
 				std::pair<int, Creature *> created_creature = std::pair<int, Creature *>(random_position, new_creature);
 				creature_location_map.insert(created_creature);
@@ -80,7 +127,26 @@ SimulationController::SimulationController(){
 			random_position ++;
 		}while(true);
 	}
-	cout<<"Wolf Created\n";
+	//cout<<"Wolf Created\n";
+	for(int i=0;i<no_of_lion; i++){
+		do{
+			random_position = rand()%(grid_width*grid_height);
+			x = random_position/grid_width;
+			y = random_position%grid_width;
+			try{
+				creature_location_map.at(random_position);
+				//cout<<"Location Not Empty\n";
+			}
+			catch(const std::out_of_range & e){
+				//cout<<"Empty Location Found\n";
+				new_creature = creature_factory->getCreature(this, std::string("LION"), x, y);
+				std::pair<int, Creature *> created_creature = std::pair<int, Creature *>(random_position, new_creature);
+				creature_location_map.insert(created_creature);
+				break;
+			}
+			random_position ++;
+		}while(true);
+	}
 }
 
 Creature * SimulationController::getCreaturesIn(const type_info & class_type, int position_x, int position_y){
@@ -147,7 +213,7 @@ std::vector<Creature *>* SimulationController::getCreaturesAround(const type_inf
 
 		}
 	}
-	cout<<creatures->size()<<"\n";
+	//cout<<creatures->size()<<"\n";
 	return creatures;
 }
 
@@ -155,26 +221,26 @@ Creature * SimulationController::getNearestCreature(const type_info & class_type
 	int min_distance = grid_height*grid_width - 1;
 	Creature * closest_creature = 0;
 	for(map<int, Creature *>::iterator it= creature_location_map.begin(); it != creature_location_map.end(); it++){
-		//cout<<"IT first "<<it->first<<endl;
+		////cout<<"IT first "<<it->first<<endl;
 		if(it->second != 0){
 		int current_distance = abs(it->second->position_x-position_x) + abs(it->second->position_y-position_y);
 		Creature * current_creature = it->second;
-		//cout<<"Creature type in NearestCreature"<<typeid(*current_creature).name()<<"\n";
+		////cout<<"Creature type in NearestCreature"<<typeid(*current_creature).name()<<"\n";
 		if(current_distance < min_distance && class_type == typeid(*current_creature)){
 			min_distance = current_distance;
 			closest_creature = current_creature;
 		}
 	}
 	else{
-		cout<<"MAp has null value"<<endl;
+		//cout<<"MAp has null value"<<endl;
 	}
 	}
-	cout<<"returning getNearestCreature"<<endl;
+	//cout<<"returning getNearestCreature"<<endl;
 	return closest_creature;
 }
 
 void SimulationController::changePosition(Creature * creature,int position_x,int position_y){
-	cout<<"Position hange syuir&&&&&"<<endl;
+	//cout<<"Position hange syuir&&&&&"<<endl;
 
 	try{
 		if(position_x<0 || position_x>grid_height-1 || position_y<0 || position_y>grid_width-1){
@@ -185,13 +251,13 @@ void SimulationController::changePosition(Creature * creature,int position_x,int
 	}
 	catch(std::out_of_range e){
 
-		cout<<"Position cahnge check success 111111111"<<endl;
+		//cout<<"Position cahnge check success 111111111"<<endl;
 		map<int, Creature *>::iterator it = creature_location_map.find(creature->position_x*grid_width+creature->position_y);
-		cout<<"Position cahnge check success 2222222"<<endl;
+		//cout<<"Position cahnge check success 2222222"<<endl;
 		creature_location_map[position_x*grid_width+position_y] = creature;
-		cout<<"Position cahnge check success 3333333!"<<endl;
+		//cout<<"Position cahnge check success 3333333!"<<endl;
 		creature_location_map.erase(creature->position_x*grid_width+creature->position_y);
-		cout<<"Position cahnge check success !!!!!!!"<<endl;
+		//cout<<"Position cahnge check success !!!!!!!"<<endl;
 		
 	}
 }
@@ -212,24 +278,22 @@ std::vector<Creature *> * SimulationController::getCreatureList() {
 
 void SimulationController::addChild(Creature * child, int position_x, int position_y){
 	std::vector<std::pair<int, int> > * positions = getPointsAround(position_x, position_y);
-	cout <<endl<< "List of possible points around "<<position_x<<","<<position_y<<endl;
+	//cout <<endl<< "List of possible points around "<<position_x<<","<<position_y<<endl;
 	for(std::vector<pair<int, int> >::iterator item=positions->begin();item!=positions->end();item++){
-		cout <<endl<< "ITEM first, second "<<item->first<<","<<item->second<<endl;
+		//cout <<endl<< "ITEM first, second "<<item->first<<","<<item->second<<endl;
 		try{
-			if (item->first*grid_width+item->second == 5) {
-				cout<<"VALUE IS 5"<<endl;
-			}
 		Creature * creature = creature_location_map.at(item->first*grid_width+item->second);
-		cout<<"got list of child"<<endl;
+		//cout<<"got list of child"<<endl;
 		}
 		catch(std::out_of_range e){
 			if(child != 0){
+			child->setPosition(item->first, item->second);
 			creature_location_map[item->first*grid_width+item->second] = child;
-			cout<<"CHild added KKKKKKKKKK"<<endl;
+			//cout<<"CHild added KKKKKKKKKK"<<endl;
 			return;
 		}
 		else{
-			cout<<"child null *****"<<endl;
+			//cout<<"child null *****"<<endl;
 		}
 		}
 	}
@@ -239,19 +303,19 @@ void SimulationController::removeCreature(Creature * creature){
 	/*for (mapIter = creature_location_map.begin(); mapIter != creature_location_map.end(); ++mapIter) {
 		if(creature == mapIter->second){
 			creature_location_map.erase(mapIter);
-			cout<<"DELETING *********55555555555"<<endl;
+			//cout<<"DELETING *********55555555555"<<endl;
 		}
     }*/
 	creature_location_map.erase(creature->position_x*grid_width+creature->position_y);
-	cout<<"DELETING *********55555555555"<<endl;
+	//cout<<"DELETING *********55555555555"<<endl;
 
 }
 
 void SimulationController::printMap (){
 	std::map<int, Creature*>::iterator mapIter;
-	cout<<"PRINTING MAP"<<endl;
+	//cout<<"PRINTING MAP"<<endl;
 	for (mapIter = creature_location_map.begin(); mapIter != creature_location_map.end(); ++mapIter) {
-		cout<<mapIter->first<<typeid(* mapIter->second).name()<<endl;
+		//cout<<mapIter->first<<typeid(* mapIter->second).name()<<endl;
 		
 	}
 }
@@ -282,14 +346,14 @@ void SimulationController::start() {
     }
     /*
 	Wolf * wolf = (Wolf *)(getNearestCreature(typeid(Wolf), 10, 10));
-	cout<<wolf->position_x<<","<<wolf->position_y<<"\n";
+	//cout<<wolf->position_x<<","<<wolf->position_y<<"\n";
 	
 		wolf->routine();
 
 		//wolf->metabolize();
 		//wolf->growOld();
-		cout<<"After movement ..."<<wolf->is_alive<<"\n";
-		cout<<wolf->position_x<<","<<wolf->position_y<<wolf->current_food_level<<"\n";
+		//cout<<"After movement ..."<<wolf->is_alive<<"\n";
+		//cout<<wolf->position_x<<","<<wolf->position_y<<wolf->current_food_level<<"\n";
 	
 	
 	Grass * grass = (Grass *)getCreaturesIn(typeid(Grass), 0, 0);

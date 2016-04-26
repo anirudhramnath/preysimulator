@@ -13,6 +13,7 @@ class Wolf: public Carnivore {
 	public:
 		Wolf(SimulationController *, int, int);
 		Creature * getInstance();
+        void move();
 
 };
 

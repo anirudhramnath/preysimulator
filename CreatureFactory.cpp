@@ -4,6 +4,9 @@
 #include "Grass.h"
 #include "Deer.h"
 #include "Wolf.h"
+#include "Rabiit.h"
+#include "Rat.h"
+#include "Lion.h"
 
 CreatureFactory::CreatureFactory(){
 }
@@ -19,5 +22,15 @@ Creature * CreatureFactory::getCreature(SimulationController * environment, std:
 	else if (creature_type.compare("WOLF") == 0) {
 		return new Wolf(environment, position_x, position_y);
 	}
+    else if (creature_type.compare("RABBIT") == 0) {
+        return new Rabbit(environment, position_x, position_y);
+    }
+    else if (creature_type.compare("RAT") == 0) {
+        return new Rat(environment, position_x, position_y);
+    }
+    else if (creature_type.compare("LION") == 0) {
+        return new Lion(environment, position_x, position_y);
+    }
+
 
 }

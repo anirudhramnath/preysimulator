@@ -21,27 +21,27 @@ void Herbivore::getFood(){
 }
 
 void Herbivore::grace(){
-	cout<<"gracing attempted;;;;;;;;;;"<<endl;
+	//cout<<"gracing attempted;;;;;;;;;;"<<endl;
 	Grass * grass = (Grass *)environment->getCreaturesIn(typeid(Grass), position_x, position_y);
 	this->addFoodLevel(grass->getGraced(10)); // dont need appetite. we can impl it in Grass class. more grass = more food grazed
 }
 
 void Herbivore::move(){
-	cout<<endl<<"Breakpoint 1"<<endl;
+	////cout<<endl<<"Breakpoint 1"<<endl;
 	vector<Creature *>* grasses_around = environment->getCreaturesAround(typeid(Grass), position_x, position_y);
-	cout<<endl<<"Breakpoint 2"<<endl;
+	////cout<<endl<<"Breakpoint 2"<<endl;
 	int max_grass_food = -1;
 	Grass * max_grass;
-	cout<<"NO OF CANDIDATES"<<grasses_around->size()<<"\n";
+	//cout<<"NO OF CANDIDATES"<<grasses_around->size()<<"\n";
 	for(int i=0;i<grasses_around->size();i++){
-		cout<<"grass at:"<<grasses_around->at(i)->position_x<<","<<grasses_around->at(i)->position_y<<"has:"<<grasses_around->at(i)->current_food_level<<"\n";
+		//cout<<"grass at:"<<grasses_around->at(i)->position_x<<","<<grasses_around->at(i)->position_y<<"has:"<<grasses_around->at(i)->current_food_level<<"\n";
 		if(grasses_around->at(i)->current_food_level > max_grass_food){
 			max_grass = (Grass *)grasses_around->at(i);
 			max_grass_food = grasses_around->at(i)->current_food_level;
 
 		}
 	}
-	cout<<"max grass position"<<max_grass->position_x<<","<<max_grass->position_y<<"\n";
+	//cout<<"max grass position"<<max_grass->position_x<<","<<max_grass->position_y<<"\n";
 	if(max_grass_food != 0){
 		try{
 			if(position_x-max_grass->position_x > 0)
@@ -67,7 +67,7 @@ void Herbivore::move(){
 			}
 		}
 		catch(NotEmpty){
-			cout<<"hit";
+			////cout<<"hit";
 		}
 	}
 	
@@ -78,15 +78,14 @@ void Herbivore::move(){
 	positions.push_back(std::pair<int, int>(position_x, position_y+1));
 
 	while(positions.size() > 0){
+		int selected_index = rand()%positions.size();
 		try{
-			int selected_index = rand()%positions.size();
 			std::pair<int, int> selected_position = positions[selected_index];
 			setPosition(selected_position.first, selected_position.second);
-			positions.erase(positions.begin()+selected_index);
 			return;
 		}
 		catch(NotEmpty){
-
+			positions.erase(positions.begin()+selected_index);
 		}
 	}
 	

@@ -12,11 +12,11 @@
 
 
 int main(){
-    sf::RenderWindow window(sf::VideoMode(1366, 768), "Prey Simulator");
-    window.setVerticalSyncEnabled(true);
+    sf::RenderWindow window(sf::VideoMode(1024, 768), "Prey Simulator");
+    window.setVerticalSyncEnabled(false);
 
 
-    Land land = Land(50,50,window);//50 cell by 50 cell grid.
+    Land land = Land(30,30,window);//50 cell by 50 cell grid.
 
 
     while (window.isOpen()){

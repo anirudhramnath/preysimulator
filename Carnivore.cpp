@@ -7,6 +7,8 @@
 
 #include "Carnivore.h"
 #include "Deer.h"
+#include "Rabiit.h"
+#include "Rat.h"
 /**
  * Carnivore implementation
  */
@@ -25,18 +27,34 @@ void Carnivore::getFood(){
 
 void Carnivore::hunt(){
 	vector<Creature *>* list_of_animals = environment->getCreaturesAround(typeid(Deer), position_x, position_y);
-	cout<<list_of_animals->size()<<"count\n";
+	//cout<<list_of_animals->size()<<"count\n";
 	if(list_of_animals->size() !=0){
 		Deer * deer = (Deer *)(list_of_animals->at(0));
 		this->addFoodLevel(deer->getConsumed(0));
+		return;
 	}	
+	list_of_animals = environment->getCreaturesAround(typeid(Rabbit), position_x, position_y);
+	//cout<<list_of_animals->size()<<"count\n";
+	if(list_of_animals->size() !=0){
+		Rabbit * rabbit = (Rabbit *)(list_of_animals->at(0));
+		this->addFoodLevel(rabbit->getConsumed(0));
+		return;
+	}
+	list_of_animals = environment->getCreaturesAround(typeid(Rat), position_x, position_y);
+	//cout<<list_of_animals->size()<<"count\n";
+	if(list_of_animals->size() !=0){
+		Rat * rat = (Rat *)(list_of_animals->at(0));
+		this->addFoodLevel(rat->getConsumed(0));
+		return;
+	}
 }
 
 
-void Carnivore::move(){
-	cout<<endl<<"Carnivore is trying to move"<<endl;
-	Creature * nearest_creature = environment->getNearestCreature(typeid(Deer), position_x, position_y);
-	cout<<"position of animal being chased"<<nearest_creature->position_x<<", "<<nearest_creature->position_y<<"\n";
+void Carnivore::moveTowards(const type_info & creature_type){
+	//cout<<endl<<"Carnivore is trying to move"<<endl;
+	Creature * nearest_creature = environment->getNearestCreature(creature_type, position_x, position_y);
+
+	////cout<<"position of animal being chased"<<nearest_creature->position_x<<", "<<nearest_creature->position_y<<"\n";
 	
 	try{
 		if(nearest_creature != 0){
@@ -63,7 +81,7 @@ void Carnivore::move(){
 		}
 	}
 	catch(NotEmpty){
-		cout<<"Standard Chase Failed\n";
+		//cout<<"Standard Chase Failed\n";
 	}
 		
 	std::vector<std::pair<int, int> > positions = std::vector<std::pair<int, int> >();
@@ -73,15 +91,14 @@ void Carnivore::move(){
 	positions.push_back(std::pair<int, int>(position_x, position_y+1));
 
 	while(positions.size() > 0){
+		int selected_index = rand()%positions.size();
 		try{
-			int selected_index = rand()%positions.size();
 			std::pair<int, int> selected_position = positions[selected_index];
 			setPosition(selected_position.first, selected_position.second);
-			positions.erase(positions.begin()+selected_index);
 			return;
 		}
 		catch(NotEmpty){
-
+			positions.erase(positions.begin()+selected_index);
 		}
 	}
 				

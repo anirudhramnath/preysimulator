@@ -69,7 +69,7 @@ using namespace std;
     }
 
     void Land::update(){
-        std::this_thread::sleep_for (std::chrono::seconds(1));
+        //std::this_thread::sleep_for (std::chrono::seconds(1));
         for (int j=0; j<Y; j++) {
             for (int i=0; i<X ;i++) {
                 // Set default color to White
@@ -79,15 +79,13 @@ using namespace std;
         }
         controller->start();
         vector<Creature *> * creatures = controller->getCreatureList();
-        cout<<"\n"<<creatures->size()<<"\n";
-        static int i = 0;
+        //cout<<"\n"<<creatures->size()<<" CREATURE SIZE \n";
         /* Update Land */
-        for (int i = 0; i < creatures->size(); ++i) {
-            applyLandColor(creatures->at(i));
+        for (int x = 0; x < creatures->size(); ++x) {
+            applyLandColor((*creatures)[x]);
         }
         
-        cout<<"CREATURE DRAWN!!!!***************************\n";
-        i++;
+        //cout<<"CREATURE DRAWN!!!!***************************\n";
     }
 
     void Land::draw(sf::RenderWindow &w){
@@ -132,7 +130,6 @@ using namespace std;
     void Land::applyLandColor(Creature * creature) {
         // check the type of creature and color the grid block
         string object_type = typeid(*creature).name();
-        //cout<<endl<<"Create name is "<<object_type<<endl;
 
         int pos_x = creature->position_x;
         int pos_y = creature->position_y;
@@ -140,16 +137,16 @@ using namespace std;
         if(object_type.compare("5Grass") == 0){
             Yard[pos_x][pos_y].SetOuterSquare(GREEN);
         }
-        else if(object_type.compare("Sheep") == 0){
-            Yard[pos_x][pos_y].SetInnerSquare(BLUE);
+        else if(object_type.compare("4Lion") == 0){
+            Yard[pos_x][pos_y].SetInnerSquare(MAGENTA);
         }
         else if(object_type.compare("4Wolf") == 0){
             Yard[pos_x][pos_y].SetInnerSquare(RED);
         }
-        else if(object_type.compare("Zombie") == 0){
+        else if(object_type.compare("3Rat") == 0){
             Yard[pos_x][pos_y].SetInnerSquare(BLACK);
         }
-        else if(object_type.compare("Rabiit") == 0){
+        else if(object_type.compare("6Rabbit") == 0){
             Yard[pos_x][pos_y].SetInnerSquare(YELLOW);
         }
         else if(object_type.compare("4Deer") == 0){
